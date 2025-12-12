@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { useStore } from '../hooks/useStore';
 import Navbar from './Navbar';
 import useAudio from '../hooks/useAudio';
-import { Volume2, VolumeX } from 'lucide-react';
 
 const Overlay = () => {
     const isMuted = useStore((state) => state.audioMuted);
@@ -71,9 +70,10 @@ const Overlay = () => {
             {/* Sound Toggle */}
             <button
                 onClick={toggleMute}
-                className="fixed top-24 right-10 pointer-events-auto p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 hover:border-accent text-white transition-colors z-50"
+                className="fixed top-24 right-10 pointer-events-auto px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 hover:border-accent text-white transition-colors z-50 flex items-center gap-2"
             >
-                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                <div className={`w-2 h-2 rounded-full ${isMuted ? 'bg-red-500' : 'bg-green-500 animate-pulse'}`} />
+                {isMuted ? 'MUTED' : 'AUDIO ON'}
             </button>
 
             {/* Bottom Left Status */}

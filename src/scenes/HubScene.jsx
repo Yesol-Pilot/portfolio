@@ -172,25 +172,21 @@ const CosmicNode = ({ position = [0, 0, 0], label, targetScene, color, angle, ra
 const OrbitRing = ({ radius, color, speed = 0.1 }) => {
     const ref = useRef();
     useFrame((state, delta) => {
-        if (ref.current) {
-            ref.current.rotation.z += delta * speed;
-            // Tilt the ring to stay above grid
-            ref.current.rotation.x = Math.PI / 3 + Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
-        }
-    });
-
-    return (
-        <group ref={ref} position={[0, 1, 0]}>
-            {/* Main Ring */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[radius, 0.02, 16, 100]} />
-                <meshBasicMaterial color={color} transparent opacity={0.4} />
-            </mesh>
-            {/* Moving Particle on Ring */}
-            <mesh position={[radius, 0, 0]}>
-                <sphereGeometry args={[0.05]} />
-                <meshStandardMaterial color={color} emissive={color} emissiveIntensity={5} roughness={0} metalness={1} />
-            </mesh>
-        </group>
-    );
-};
+        const OrbitRing = ({ radius, color, rotationRef }) => {
+            return (
+                <group>
+                    {/* Ring Container that will rotate via Ref */}
+                    <group ref={rotationRef}>
+                        <mesh rotation={[Math.PI / 2, 0, 0]}>
+                            <torusGeometry args={[radius, 0.02, 32, 100]} />
+                            <meshBasicMaterial color={color} transparent opacity={0.3} />
+                        </mesh>
+                        {/* Visual marker on the ring to show rotation speed */}
+                        <mesh position={[radius, 0, 0]}>
+                            <sphereGeometry args={[0.08]} />
+                            <meshStandardMaterial color={color} emissive={color} emissiveIntensity={5} roughness={0} metalness={1} />
+                        </mesh>
+                    </group>
+                </group>
+            );
+        };
