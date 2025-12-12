@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '../hooks/useStore';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +36,6 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleSpy);
     }, []);
 
-    const navItems = ['HOME', 'WORK', 'EXPERTISE', 'PROCESS', 'CONTACT', 'HISTORY'];
     const currentScene = useStore((state) => state.currentScene);
     const setScene = useStore((state) => state.setScene);
 
@@ -60,6 +58,7 @@ const Navbar = () => {
         { name: 'Expertise', action: () => handleNav('profile', 'expertise'), id: 'expertise' },
         { name: 'Process', action: () => handleNav('profile', 'achievements'), id: 'achievements' },
         { name: 'Contact', action: () => handleNav('contact'), id: 'contact' },
+        { name: 'History', action: () => setScene('history'), id: 'history' }, // Added History
     ];
 
     return (
@@ -75,9 +74,11 @@ const Navbar = () => {
                         <button
                             key={link.name}
                             onClick={link.action}
-                            className={`transition-colors text-sm font-medium ${activeSection === link.id
-                                ? 'text-primary font-bold shadow-[0_0_10px_rgba(6,182,212,0.5)]'
-                                : 'text-gray-300 hover:text-white hover:text-glow'
+                            className={`transition-colors text-sm font-medium ${currentScene === 'history' && link.name === 'History'
+                                ? 'text-primary font-bold'
+                                : activeSection === link.id
+                                    ? 'text-primary font-bold shadow-[0_0_10px_rgba(6,182,212,0.5)]'
+                                    : 'text-gray-300 hover:text-white hover:text-glow'
                                 }`}
                         >
                             {link.name}
@@ -85,12 +86,23 @@ const Navbar = () => {
                     ))}
                 </div>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Button (SVG replacement) */}
                 <button
                     className="md:hidden text-white"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    {isOpen ? (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    ) : (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    )}
                 </button>
             </div>
 
@@ -101,18 +113,20 @@ const Navbar = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-surface border-b border-gray-800"
+                        className="md:hidden bg-surface border-b border-gray-800 bg-black/90 backdrop-blur"
                     >
                         <div className="flex flex-col px-6 py-4 space-y-4">
                             {navLinks.map((link) => (
-                                <a
+                                <button
                                     key={link.name}
-                                    href={link.href}
-                                    className="text-gray-300 hover:text-white block py-2"
-                                    onClick={() => setIsOpen(false)}
+                                    className="text-gray-300 hover:text-white block py-2 text-left"
+                                    onClick={() => {
+                                        link.action();
+                                        setIsOpen(false);
+                                    }}
                                 >
                                     {link.name}
-                                </a>
+                                </button>
                             ))}
                         </div>
                     </motion.div>
