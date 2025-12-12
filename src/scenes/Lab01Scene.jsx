@@ -1,29 +1,28 @@
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Instances, Instance, Float, Text, Environment, Billboard, Html } from '@react-three/drei';
+import { Text, Environment, Float, MeshDistortMaterial, Html } from '@react-three/drei';
 import { useStore } from '../hooks/useStore';
 import * as THREE from 'three';
 
 const Lab01Scene = () => {
     const setScene = useStore(state => state.setScene);
     const [config, setConfig] = useState({
-        distort: 0.6,
-        speed: 3,
-        hover: false
+        distort: 0.5,
+        speed: 2,
+        color: '#00ff41'
     });
 
-    const particles = useMemo(() => {
-        const temp = [];
-        for (let i = 0; i < 200; i++) {
-            const x = (Math.random() - 0.5) * 15;
-            const y = (Math.random() - 0.5) * 15;
-            const z = (Math.random() - 0.5) * 15;
-            temp.push({ position: [x, y, z], scale: Math.random() });
-        }
-        return temp;
-    }, []);
+    const meshRef = useRef();
 
-    // Simple Control Panel UI
+    useFrame((state) => {
+        if (meshRef.current) {
+            // Subtle rotation
+            meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
+            meshRef.current.rotation.y = state.clock.elapsedTime * 0.1;
+        }
+    });
+
+    // Control Panel UI (Enhanced Design)
     const Controls = () => (
         <Html
             position={[3.5, 0, 0]}
@@ -33,41 +32,43 @@ const Lab01Scene = () => {
             style={{ pointerEvents: 'auto', userSelect: 'none' }}
         >
             <div
-                className="w-64 bg-black/80 border border-cyan-500/50 p-4 rounded backdrop-blur-md text-cyan-400 font-mono text-xs select-none"
-                style={{ pointerEvents: 'auto' }}
+                className="w-72 bg-black/90 border border-[#00ff41]/50 p-6 rounded-lg backdrop-blur-xl text-[#00ff41] font-mono text-xs shadow-[0_0_30px_rgba(0,255,65,0.2)]"
             >
-
-                <div className="mb-4 border-b border-cyan-500/30 pb-2 font-bold flex justify-between">
+                <div className="mb-6 border-b border-[#00ff41]/30 pb-2 font-bold flex justify-between tracking-widest">
                     <span>SHADER_CONTROLLER</span>
-                    <span className="animate-pulse">●</span>
+                    <span className="animate-pulse">● ONLINE</span>
                 </div>
 
-                <div className="mb-3">
-                    <label className="block mb-1 flex justify-between">
-                        <span>DISTORTION</span>
-                        <span>{config.distort.toFixed(1)}</span>
-                    </label>
-                    <input
-                        type="range" min="0" max="1" step="0.1"
-                        value={config.distort}
-                        onChange={(e) => setConfig(prev => ({ ...prev, distort: parseFloat(e.target.value) }))}
-                        className="w-full accent-cyan-500 h-1 bg-gray-700 rounded appearance-none"
-                        style={{ pointerEvents: 'auto' }}
-                    />
+                <div className="space-y-6">
+                    <div>
+                        <label className="flex justify-between mb-2 opacity-80">
+                            <span>DISTORTION</span>
+                            <span>{config.distort.toFixed(2)}</span>
+                        </label>
+                        <input
+                            type="range" min="0" max="1" step="0.01"
+                            value={config.distort}
+                            onChange={(e) => setConfig(prev => ({ ...prev, distort: parseFloat(e.target.value) }))}
+                            className="w-full h-1 bg-[#00ff41]/20 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-[#00ff41] [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-125 transition-all"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="flex justify-between mb-2 opacity-80">
+                            <span>FLUX_SPEED</span>
+                            <span>{config.speed.toFixed(1)}</span>
+                        </label>
+                        <input
+                            type="range" min="0" max="10" step="0.1"
+                            value={config.speed}
+                            onChange={(e) => setConfig(prev => ({ ...prev, speed: parseFloat(e.target.value) }))}
+                            className="w-full h-1 bg-[#00ff41]/20 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-[#00ff41] [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-125 transition-all"
+                        />
+                    </div>
                 </div>
 
-                <div className="mb-3">
-                    <label className="block mb-1 flex justify-between">
-                        <span>SPEED</span>
-                        <span>{config.speed.toFixed(1)}</span>
-                    </label>
-                    <input
-                        type="range" min="0" max="10" step="0.5"
-                        value={config.speed}
-                        onChange={(e) => setConfig(prev => ({ ...prev, speed: parseFloat(e.target.value) }))}
-                        className="w-full accent-cyan-500 h-1 bg-gray-700 rounded appearance-none"
-                        style={{ pointerEvents: 'auto' }}
-                    />
+                <div className="mt-6 text-[10px] opacity-50 text-center border-t border-[#00ff41]/20 pt-2">
+                    INTERACTIVE_MODULE_V1.0
                 </div>
             </div>
         </Html>
@@ -75,43 +76,40 @@ const Lab01Scene = () => {
 
     return (
         <group>
-            <color attach="background" args={['#020b02']} />
-            <Environment preset="city" />
+            <color attach="background" args={['#050505']} />
+            <Environment preset="night" />
 
-            <Billboard follow={true} lockX={false} lockY={false} lockZ={false}>
-                <Text position={[0, 2.5, -2]} fontSize={0.5} color="#ececec" anchorX="center">
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                <Text
+                    position={[0, 3.5, -2]}
+                    fontSize={0.4}
+                    color="#00ff41"
+                    font="https://fonts.gstatic.com/s/sharetechmono/v15/J7aHnp1uDWRCCytEs2UM2w.woff"
+                    anchorX="center"
+                    anchorY="middle"
+                >
                     LAB 01 : SHADER FIELD
                 </Text>
-            </Billboard>
+            </Float>
 
-            {/* Back button is now handled globally via Overlay/ESC */}
-
-
-            <Instances range={200}>
-                <sphereGeometry args={[0.05, 16, 16]} />
-                <meshStandardMaterial color="#00ff41" emissive="#00ff41" />
-                {particles.map((data, i) => (
-                    <Instance key={i} position={data.position} scale={data.scale} />
-                ))}
-            </Instances>
-
-            <Float speed={2} rotationIntensity={1}>
-                <mesh
-                    onPointerOver={() => setConfig(prev => ({ ...prev, hover: true }))}
-                    onPointerOut={() => setConfig(prev => ({ ...prev, hover: false }))}
-                >
-                    <icosahedronGeometry args={[1.5, 4]} />
-                    <meshStandardMaterial
-                        color={config.hover ? "#00ffff" : "#00ff41"}
-                        attach="material"
+            <Float speed={config.speed * 0.5} rotationIntensity={2} floatIntensity={1}>
+                <mesh ref={meshRef} position={[0, 0, 0]} scale={2}>
+                    <icosahedronGeometry args={[1, 64]} />
+                    <MeshDistortMaterial
+                        color={config.color}
+                        envMapIntensity={1}
+                        clearcoat={1}
+                        clearcoatRoughness={0.1}
+                        metalness={0.5}
                         roughness={0.2}
-                        metalness={0.9}
-                        wireframe={config.hover}
-                        emissive={config.hover ? "#00ffff" : "#00ff41"}
-                        emissiveIntensity={0.3}
+                        distort={config.distort}
+                        speed={config.speed}
                     />
                 </mesh>
             </Float>
+
+            {/* Grid Floor for context */}
+            <gridHelper args={[20, 20, 0x111111, 0x050505]} position={[0, -4, 0]} />
 
             <Controls />
         </group>
