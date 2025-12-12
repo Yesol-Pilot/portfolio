@@ -1,0 +1,119 @@
+import { useRef, useState } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Float, Stars, Sparkles, Text, Html, MeshDistortMaterial, PivotControls } from '@react-three/drei';
+import { useStore } from '../hooks/useStore';
+import * as THREE from 'three';
+
+const ProfileScene = () => {
+    const setScene = useStore(state => state.setScene);
+    const groupRef = useRef();
+
+    useFrame((state) => {
+        const t = state.clock.getElapsedTime();
+        if (groupRef.current) {
+            groupRef.current.rotation.y = Math.sin(t / 4) / 8;
+            groupRef.current.rotation.x = Math.cos(t / 4) / 8;
+        }
+    });
+
+    return (
+        <group ref={groupRef}>
+            {/* Background Atmosphere */}
+            <Stars radius={50} depth={50} count={3000} factor={4} saturation={0} fade speed={0.5} />
+            <Sparkles count={200} scale={12} size={2} speed={0.2} opacity={0.3} color="#06b6d4" />
+
+            {/* Central "Core" Identity Object */}
+            <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                <mesh position={[0, 0, 0]}>
+                    <icosahedronGeometry args={[1.5, 0]} />
+                    <MeshDistortMaterial
+                        color="#06b6d4"
+                        wireframe
+                        distort={0.4}
+                        speed={2}
+                        roughness={0}
+                        metalness={1}
+                    />
+                </mesh>
+            </Float>
+
+            {/* Left Panel: Identity Data */}
+            <Html position={[-3.5, 0, 0]} transform distanceFactor={4} style={{ pointerEvents: 'auto' }}>
+                <div className="w-80 bg-black/80 border-l-4 border-cyan-500 p-6 rounded-r-lg backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+                    <h1 className="text-3xl font-bold text-white mb-1 tracking-tighter">YESOL HEO</h1>
+                    <div className="text-cyan-400 font-mono text-sm mb-4 tracking-widest">CREATIVE DEVELOPER</div>
+
+                    <div className="space-y-2 text-xs text-gray-300 font-mono">
+                        <div className="flex justify-between border-b border-white/10 pb-1">
+                            <span>CLASS</span>
+                            <span className="text-white">WIZARD</span>
+                        </div>
+                        <div className="flex justify-between border-b border-white/10 pb-1">
+                            <span>LEVEL</span>
+                            <span className="text-white">25</span>
+                        </div>
+                        <div className="flex justify-between border-b border-white/10 pb-1">
+                            <span>GUILD</span>
+                            <span className="text-white">OPEN TO WORK</span>
+                        </div>
+                    </div>
+                </div>
+            </Html>
+
+            {/* Right Panel: Stats & Skills */}
+            <Html position={[3.5, 0.5, 0]} transform distanceFactor={4} style={{ pointerEvents: 'auto' }}>
+                <div className="w-72 bg-black/80 border-r-4 border-pink-500 p-6 rounded-l-lg backdrop-blur-md shadow-[0_0_30px_rgba(236,72,153,0.3)] text-right">
+                    <h2 className="text-xl font-bold text-white mb-4 border-b border-pink-500/50 pb-2 inline-block">SYSTEM STATS</h2>
+
+                    <div className="space-y-3 font-mono text-xs">
+                        <div>
+                            <div className="flex justify-between text-pink-300 mb-1">
+                                <span>REACT.JS</span>
+                                <span>92%</span>
+                            </div>
+                            <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
+                                <div className="bg-pink-500 h-full w-[92%] shadow-[0_0_10px_pink]" />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex justify-between text-pink-300 mb-1">
+                                <span>THREE.JS</span>
+                                <span>85%</span>
+                            </div>
+                            <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
+                                <div className="bg-pink-500 h-full w-[85%] shadow-[0_0_10px_pink]" />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex justify-between text-pink-300 mb-1">
+                                <span>UI/UX</span>
+                                <span>88%</span>
+                            </div>
+                            <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
+                                <div className="bg-pink-500 h-full w-[88%] shadow-[0_0_10px_pink]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Html>
+
+            {/* Bottom Panel: Mission/Bio */}
+            <Html position={[0, -2.5, 0]} transform distanceFactor={4} style={{ pointerEvents: 'auto' }}>
+                <div className="w-[500px] bg-black/60 border-t border-b border-white/20 p-4 backdrop-blur-sm text-center">
+                    <p className="text-gray-300 text-sm font-mono leading-relaxed">
+                        "Building immersive digital experiences at the intersection of design and technology.
+                        Turning code into visual poetry."
+                    </p>
+                    <div className="mt-2 text-[10px] text-gray-500 flex justify-center gap-4">
+                        <span>LOC: SEOUL, KR</span>
+                        <span>STATUS: ONLINE</span>
+                        <span>PING: 12ms</span>
+                    </div>
+                </div>
+            </Html>
+
+        </group>
+    );
+};
+
+export default ProfileScene;

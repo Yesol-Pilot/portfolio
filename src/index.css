@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased overflow-hidden;
+    /* Hide default scrollbar */
+    font-feature-settings: "rlig" 1, "calt" 1;
+    cursor: none;
+    /* Custom cursor */
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+
+  .glass-panel {
+    @apply bg-surface/30 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Custom Scrollbar for non-overlay elements if needed */
+/* ::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+} */
