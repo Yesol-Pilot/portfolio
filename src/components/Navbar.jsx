@@ -37,6 +37,8 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleSpy);
     }, []);
 
+    const navItems = ['HOME', 'WORK', 'EXPERTISE', 'PROCESS', 'CONTACT', 'HISTORY'];
+    const currentScene = useStore((state) => state.currentScene);
     const setScene = useStore((state) => state.setScene);
 
     const handleNav = (scene, id) => {
@@ -74,8 +76,8 @@ const Navbar = () => {
                             key={link.name}
                             onClick={link.action}
                             className={`transition-colors text-sm font-medium ${activeSection === link.id
-                                    ? 'text-primary font-bold shadow-[0_0_10px_rgba(6,182,212,0.5)]'
-                                    : 'text-gray-300 hover:text-white hover:text-glow'
+                                ? 'text-primary font-bold shadow-[0_0_10px_rgba(6,182,212,0.5)]'
+                                : 'text-gray-300 hover:text-white hover:text-glow'
                                 }`}
                         >
                             {link.name}

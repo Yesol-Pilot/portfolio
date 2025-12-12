@@ -1,58 +1,20 @@
-import { useRef, useState, useEffect } from 'react';
-import { useStore } from '../hooks/useStore';
-import Navbar from './Navbar';
-import useAudio from '../hooks/useAudio';
+import HistoryPanel from './HistoryPanel';
+
+// ... existing imports
 
 const Overlay = () => {
-    const isMuted = useStore((state) => state.audioMuted);
-    const toggleMute = useStore((state) => state.toggleAudio);
-    const currentScene = useStore((state) => state.currentScene);
-    const setScene = useStore((state) => state.setScene);
-    const orbitSpeed = useStore((state) => state.orbitSpeed);
-    const setOrbitSpeed = useStore((state) => state.setOrbitSpeed);
-    const { playHoverSound, playClickSound } = useAudio();
-
-    // Attach global hover listener for sound
-    useEffect(() => {
-        const handleMouseOver = (e) => {
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
-                playHoverSound();
-            }
-        };
-
-        const handleClick = () => playClickSound();
-
-        window.addEventListener('mouseover', handleMouseOver);
-        window.addEventListener('click', handleClick);
-        return () => {
-            window.removeEventListener('mouseover', handleMouseOver);
-            window.removeEventListener('click', handleClick);
-        };
-    }, [playHoverSound, playClickSound]);
-
-    // Global ESC Key Listener
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) {
-                if (e.key === 'Escape') {
-                    document.activeElement.blur();
-                }
-                return;
-            }
-
-            if (e.key === 'Escape') {
-                setScene('hub');
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [setScene]);
+    // ... existing hooks
 
     return (
         <div className="fixed inset-0 pointer-events-none z-40 text-xs font-mono select-none">
 
+            {/* History Panel Overlay */}
+            {currentScene === 'history' && (
+                <HistoryPanel onClose={() => setScene('hub')} />
+            )}
+
             {/* Global Back Button (Visible in sub-scenes) */}
-            {currentScene !== 'boot' && currentScene !== 'hub' && (
+            {currentScene !== 'boot' && currentScene !== 'hub' && currentScene !== 'history' && (
                 <button
                     onClick={() => setScene('hub')}
                     className="fixed top-24 left-6 pointer-events-auto flex items-center gap-2 group text-white/70 hover:text-white transition-colors"

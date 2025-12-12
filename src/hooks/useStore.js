@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 export const useStore = create((set) => ({
     // Core System State
-    currentScene: 'boot', // 'boot', 'hub', 'lab01', 'lab02', 'lab03', 'lab04', 'contact'
+    currentScene: 'boot', // 'boot', 'hub', 'lab01', 'lab02', 'lab03', 'lab04', 'contact', 'history'
     prevScene: null,
     isTransitioning: false,
 
