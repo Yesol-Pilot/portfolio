@@ -19,8 +19,7 @@ const CosmicNode = ({ position = [0, 0, 0], label, targetScene, color, angle, ra
         // Update orbital position
         if (onOrbit && radius > 0) {
             onOrbit(state.clock.elapsedTime);
-        }
-    });
+        });
 
     // Different geometries for different scenes
     const getGeometry = () => {
