@@ -1,7 +1,7 @@
 export const patchNotes = [
     {
         version: "v1.2.0",
-        date: "2024-12-12",
+        date: "2025-12-12",
         title: "COSMIC UPDATE",
         changes: [
             "Implemented Atomic Orbital Physics for Hub Scene",
@@ -13,7 +13,7 @@ export const patchNotes = [
     },
     {
         version: "v1.1.5",
-        date: "2024-12-11",
+        date: "2025-12-11",
         title: "VISUAL OVERHAUL",
         changes: [
             "Resolved WebGL Crash issues",
@@ -25,7 +25,7 @@ export const patchNotes = [
     },
     {
         version: "v1.0.0",
-        date: "2024-12-01",
+        date: "2025-12-01",
         title: "SYSTEM INITIALIZATION",
         changes: [
             "Initial Release",

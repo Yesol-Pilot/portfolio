@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, Float, Sparkles, Stars } from '@react-three/drei';
-import { useStore } from '../hooks/useStore';
-import BootLogs from '../components/BootLogs';
+import { useStore } from '../../hooks/useStore';
+import BootLogs from '../../components/core/BootLogs';
+import MatrixRain from '../../components/effects/MatrixRain';
 import * as THREE from 'three';
 
 const BootScene = () => {

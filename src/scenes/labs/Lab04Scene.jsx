@@ -1,7 +1,7 @@
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Text, Html, PerspectiveCamera, OrbitControls, Float } from '@react-three/drei';
-import { useStore } from '../hooks/useStore';
+import { Text, Html, PerspectiveCamera, OrbitControls, Float, Billboard, Sparkles } from '@react-three/drei';
+import { useStore } from '../../hooks/useStore';
 import * as THREE from 'three';
 
 // --- Matrix Rain Shader Material ---
@@ -89,7 +89,6 @@ const MatrixEffect = () => {
 
 const Lab04Scene = () => {
     const setScene = useStore(state => state.setScene);
-    const [devMode, setDevMode] = useState(true);
 
     return (
         <group>
@@ -108,9 +107,11 @@ const Lab04Scene = () => {
                 </mesh>
 
                 {/* Header */}
-                <Text position={[0, 1.5, 0]} fontSize={0.3} color="#00ff41">
-                    LAB 04: DEBUG_ROOM
-                </Text>
+                <Billboard>
+                    <Text position={[0, 1.5, 0]} fontSize={0.3} color="#00ff41">
+                        LAB 04: DEBUG_ROOM
+                    </Text>
+                </Billboard>
 
                 {/* Content Area - Simulated Logs */}
                 <Html position={[-2.5, 1, 0]} transform scale={0.5} style={{ width: '800px', height: '400px', overflow: 'hidden' }}>
@@ -139,6 +140,9 @@ const Lab04Scene = () => {
                     <meshBasicMaterial color="#00ff41" wireframe transparent opacity={0.3} />
                 </mesh>
             </Float>
+
+            {/* Cinematic FX */}
+            <Sparkles count={100} scale={10} size={2} speed={0.3} opacity={0.6} color="#00ff41" />
 
             {/* Return Button */}
             <group position={[0, -2.5, 0]} onClick={() => setScene('hub')}>

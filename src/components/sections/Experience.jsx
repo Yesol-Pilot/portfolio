@@ -2,8 +2,8 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
 import { useEffect } from 'react';
 // import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import SceneManager from './SceneManager';
-import { useStore } from '../hooks/useStore';
+import SceneManager from '../core/SceneManager';
+import { useStore } from '../../hooks/useStore';
 
 const CameraHandler = () => {
     const currentScene = useStore((state) => state.currentScene);

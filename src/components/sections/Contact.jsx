@@ -15,20 +15,20 @@ const Contact = () => {
                 >
                     <h2 className="text-3xl font-bold mb-8">Vision</h2>
                     <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-200 mb-8">
-                        "기술이 인간의 경험을 확장하고, 긍정적인 변화를 만든다고 믿습니다."
+                        "기술???�간??경험???�장?�고, 긍정?�인 변?��? 만든?�고 믿습?�다."
                     </p>
                     <div className="bg-background/30 p-8 rounded-2xl border border-white/5 text-left md:text-center space-y-4 text-gray-400">
                         <p className="flex items-center gap-3 justify-center">
                             <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                            실제 학습·안전·직업 경험을 혁신하는 교육·공공 메타버스/XR 프로젝트
+                            ?�제 ?�습·?�전·직업 경험???�신?�는 교육·공공 메�?버스/XR ?�로?�트
                         </p>
                         <p className="flex items-center gap-3 justify-center">
                             <span className="w-1.5 h-1.5 rounded-full bg-secondary" />
-                            AI·로보틱스와 메타버스를 결합해 물리와 디지털 세계를 연결하는 융합 서비스
+                            AI·로보?�스?� 메�?버스�?결합??물리?� ?��????�계�??�결?�는 ?�합 ?�비??
                         </p>
                         <p className="flex items-center gap-3 justify-center">
                             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            지속 가능한 가치와 비즈니스 모델을 갖춘 프로젝트
+                            지??가?�한 가치�? 비즈?�스 모델??갖춘 ?�로?�트
                         </p>
                     </div>
                 </motion.div>
@@ -41,9 +41,9 @@ const Contact = () => {
                     className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-20"
                 >
                     {[
-                        { icon: Zap, title: 'Problem Solver', desc: '해결책을 찾는 추진력' },
-                        { icon: ShieldCheck, title: 'Ownership', desc: '끝까지 완수하는 책임감', iconComp: Heart }, // Using Heart as placeholder for Ownership if ShieldCheck is not ideal, but let's stick to simple ones.
-                        { icon: Code, title: 'Adaptability', desc: '빠른 적응과 흡수력' }
+                        { icon: Zap, title: 'Problem Solver', desc: '?�결책을 찾는 추진?? },
+                        { icon: ShieldCheck, title: 'Ownership', desc: '?�까지 ?�수?�는 책임�?, iconComp: Heart }, // Using Heart as placeholder for Ownership if ShieldCheck is not ideal, but let's stick to simple ones.
+                        { icon: Code, title: 'Adaptability', desc: '빠른 ?�응�??�수?? }
                     ].map((item, index) => (
                         <div key={index} className="p-6 bg-background rounded-xl border border-white/5">
                             <div className="font-bold text-white mb-2">{item.title}</div>

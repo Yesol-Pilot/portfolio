@@ -3,24 +3,24 @@ import { Trophy, Star, Award } from 'lucide-react';
 
 const awards = [
     {
-        project: '북촌한옥마을 디지털 트윈',
+        project: '북촌?�옥마을 ?��????�윈',
         prizes: [
-            '🏆 2024 웹어워드코리아 문화부문 통합대상 (Grand Prize)',
-            '🎖️ 2024 ICT어워드코리아 기술혁신분야 BRONZE'
+            '?�� 2024 ?�어?�드코리??문화부�??�합?�??(Grand Prize)',
+            '?���?2024 ICT?�워?�코리아 기술?�신분야 BRONZE'
         ]
     },
     {
-        project: '경남교육청 학생안전체험원 XR',
+        project: '경남교육�??�생?�전체험??XR',
         prizes: [
-            '🏆 2024 ICT 어워드 디지털 커뮤니케이션 GRAND PRIZE',
-            '🥇 2024 웹어워드코리아 체험분야 최우수상'
+            '?�� 2024 ICT ?�워???��???커�??��??�션 GRAND PRIZE',
+            '?�� 2024 ?�어?�드코리??체험분야 최우?�상'
         ]
     },
     {
-        project: '전북 직업계고 메타버스 Campus',
+        project: '?�북 직업계고 메�?버스 Campus',
         prizes: [
-            '🏆 2024 웹어워드코리아 메타버스분야 대상 (Winner)',
-            '🌟 교육부 장관 표창 (프로젝트 공로)'
+            '?�� 2024 ?�어?�드코리??메�?버스분야 ?�??(Winner)',
+            '?�� 교육부 ?��? ?�창 (?�로?�트 공로)'
         ]
     }
 ];
@@ -39,7 +39,7 @@ const Achievements = () => {
                         <Trophy className="text-yellow-400 fill-yellow-400 w-10 h-10" />
                         <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600 bg-clip-text text-transparent">Available Achievements</span>
                     </h2>
-                    <p className="text-gray-400 text-lg">탁월한 성과로 인정받은 프로젝트 수상 내역입니다.</p>
+                    <p className="text-gray-400 text-lg">?�월???�과�??�정받�? ?�로?�트 ?�상 ?�역?�니??</p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">

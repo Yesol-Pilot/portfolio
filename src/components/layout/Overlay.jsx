@@ -1,9 +1,14 @@
+import { useStore } from '../../hooks/useStore';
 import HistoryPanel from './HistoryPanel';
-
-// ... existing imports
+import Navbar from './Navbar';
 
 const Overlay = () => {
-    // ... existing hooks
+    const currentScene = useStore((state) => state.currentScene);
+    const setScene = useStore((state) => state.setScene);
+    const isMuted = useStore((state) => state.isMuted);
+    const toggleMute = useStore((state) => state.toggleMute);
+    const orbitSpeed = useStore((state) => state.orbitSpeed);
+    const setOrbitSpeed = useStore((state) => state.setOrbitSpeed);
 
     return (
         <div className="fixed inset-0 pointer-events-none z-40 text-xs font-mono select-none">
@@ -25,7 +30,7 @@ const Overlay = () => {
             )}
 
             {/* Top Navigation Bar */}
-            <nav className="fixed top-0 w-full p-6 flex justify-between items-start pointer-events-auto mix-blend-difference">
+            <nav className="fixed top-0 w-full p-6 flex justify-between items-start mix-blend-difference pointer-events-none">
                 <Navbar />
             </nav>
 

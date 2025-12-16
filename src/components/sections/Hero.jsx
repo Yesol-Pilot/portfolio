@@ -31,13 +31,13 @@ const Hero = () => {
                         PM Portfolio
                     </span>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                        교육·공공 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">메타버스/XR</span><br />
-                        프로젝트 전문 PM, 허예솔
+                        교육·공공 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">메�?버스/XR</span><br />
+                        ?�로?�트 ?�문 PM, ?�예??
                     </h1>
                     <p className="text-muted text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-                        교육청·공공기관과 함께 메타버스/XR 프로젝트를 기획·운영해 온 PM입니다.<br className="hidden md:block" />
-                        현장의 문제를 깊이 이해하고, 사용자 경험을 중심에 두어<br className="hidden md:block" />
-                        기술이 '더 나은(Better)·더 쉬운(Easy)' 경험이 되도록 설계합니다.
+                        교육�?�공공기관�??�께 메�?버스/XR ?�로?�트�?기획·?�영????PM?�니??<br className="hidden md:block" />
+                        ?�장??문제�?깊이 ?�해?�고, ?�용??경험??중심???�어<br className="hidden md:block" />
+                        기술??'???��?(Better)·???�운(Easy)' 경험???�도�??�계?�니??
                     </p>
                 </motion.div>
 
@@ -49,9 +49,9 @@ const Hero = () => {
                     className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
                 >
                     {[
-                        { label: '메타버스·XR·블록체인 프로젝트 총괄', value: '10+' },
-                        { label: '고객 만족도 (사용자 중심 기획)', value: '90%' },
-                        { label: '프로젝트 기한 준수율', value: '100%' },
+                        { label: '메�?버스·XR·블록체인 ?�로?�트 총괄', value: '10+' },
+                        { label: '고객 만족??(?�용??중심 기획)', value: '90%' },
+                        { label: '?�로?�트 기한 준?�율', value: '100%' },
                     ].map((item, index) => (
                         <div key={index} className="bg-surface/50 backdrop-blur-sm border border-white/5 p-6 rounded-2xl hover:border-primary/30 transition-colors">
                             <div className="text-4xl font-bold text-white mb-2">{item.value}</div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useStore } from '../hooks/useStore';
+import { useStore } from '../../hooks/useStore';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
@@ -62,14 +62,14 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 pointer-events-none ${scrolled ? 'bg-background/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
             <div className="container mx-auto px-6 flex justify-between items-center">
-                <button onClick={() => setScene('hub')} className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <button onClick={() => setScene('hub')} className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent pointer-events-auto">
                     Yesol Heo
                 </button>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex space-x-8">
+                <div className="hidden md:flex space-x-8 pointer-events-auto">
                     {navLinks.map((link) => (
                         <button
                             key={link.name}
@@ -88,7 +88,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button (SVG replacement) */}
                 <button
-                    className="md:hidden text-white"
+                    className="md:hidden text-white pointer-events-auto"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? (

@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, Float, Environment, Billboard, Html } from '@react-three/drei';
 import * as THREE from 'three';
-import { useStore } from '../hooks/useStore';
+import { useStore } from '../../hooks/useStore';
 
 // --- Audio Manager Hook ---
 const useAudioAnalyzer = (mode) => { // mode: 'mic' or 'demo'
@@ -152,6 +152,7 @@ const Wave = ({ analyser, mode }) => {
 }
 
 const Lab03Scene = () => {
+    const setScene = useStore(state => state.setScene);
     const [mode, setMode] = useState('demo'); // 'mic' or 'demo'
     const analyser = useAudioAnalyzer(mode);
 
@@ -181,6 +182,13 @@ const Lab03Scene = () => {
                         className={`px-4 py-1 rounded font-mono text-xs transition-all ${mode === 'mic' ? 'bg-pink-600 text-white shadow-[0_0_10px_pink]' : 'text-pink-500 hover:bg-pink-900/50'}`}
                     >
                         LIVE_INPUT
+                    </button>
+
+                    <button
+                        onClick={() => setScene('hub')}
+                        className="px-4 py-1 rounded font-mono text-xs border border-white/30 text-white/70 hover:bg-white/10 hover:border-white/50 hover:text-white transition-all shadow-lg"
+                    >
+                        [ EXIT LAB ]
                     </button>
                 </div>
             </Html>

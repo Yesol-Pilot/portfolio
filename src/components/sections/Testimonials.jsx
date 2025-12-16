@@ -3,22 +3,22 @@ import { Quote } from 'lucide-react';
 
 const endorsements = [
     {
-        text: "실무 중심의 교육 환경을 메타버스로 탁월하게 구현했습니다.",
-        author: "강원도교육청 담당자",
+        text: "?�무 중심??교육 ?�경??메�?버스�??�월?�게 구현?�습?�다.",
+        author: "강원?�교?�청 ?�당??,
         role: "Client",
-        project: "위캔버스"
+        project: "?�캔버스"
     },
     {
-        text: "학생들이 위기 상황을 직접 체험하고 대처하는 능력을 기를 수 있는 획기적인 안전 교육입니다.",
-        author: "경상남도교육청 관계자",
+        text: "?�생?�이 ?�기 ?�황??직접 체험?�고 ?�처하???�력??기�? ???�는 ?�기?�인 ?�전 교육?�니??",
+        author: "경상?�도교육�?관계자",
         role: "Client",
-        project: "VR 안전체험원"
+        project: "VR ?�전체험??
     },
     {
-        text: "역사적 가치를 디지털로 완벽하게 복원하여 문화유산 보존의 새로운 모델을 제시했습니다.",
-        author: "ICT 어워드 심사평",
+        text: "??��??가치�? ?��??�로 ?�벽?�게 복원?�여 문화?�산 보존???�로??모델???�시?�습?�다.",
+        author: "ICT ?�워???�사??,
         role: "Award Jury",
-        project: "북촌한옥마을 디지털 트윈"
+        project: "북촌?�옥마을 ?��????�윈"
     }
 ];
 

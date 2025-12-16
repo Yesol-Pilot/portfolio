@@ -1,8 +1,8 @@
-import Hero from './Hero';
-import Expertise from './Expertise';
-import Career from './Career';
-import Achievements from './Achievements';
-import { useStore } from '../hooks/useStore';
+import Hero from '../sections/Hero';
+import Expertise from '../sections/Expertise';
+import Career from '../sections/Career';
+import Achievements from '../sections/Achievements';
+import { useStore } from '../../hooks/useStore';
 import { motion } from 'framer-motion';
 
 const ProfileDOM = () => {
@@ -28,7 +28,7 @@ const ProfileDOM = () => {
                     <div className="py-20 text-center border-t border-white/5 bg-black">
                         <h2 className="text-3xl font-bold mb-6 text-white">Ready to Collaborate?</h2>
                         <p className="text-gray-400 mb-8 mb-12">
-                            더 자세한 포트폴리오나 커피챗을 원하신다면 언제든 연락주세요.
+                            ???�세???�트?�리?�나 커피챗을 ?�하?�다�??�제???�락주세??
                         </p>
                         <button
                             onClick={() => setScene('contact')}

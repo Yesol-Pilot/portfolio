@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, Stars, Sparkles, Text, Html, PivotControls } from '@react-three/drei';
-import { useStore } from '../hooks/useStore';
+import { useStore } from '../../hooks/useStore';
 import * as THREE from 'three';
 
 const ProfileScene = () => {

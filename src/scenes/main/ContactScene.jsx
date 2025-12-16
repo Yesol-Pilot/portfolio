@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sparkles, Text, Float, useCursor, Html, Environment } from '@react-three/drei';
-import { useStore } from '../hooks/useStore';
+import { useStore } from '../../hooks/useStore';
 import * as THREE from 'three';
 
 const ContactScene = () => {
@@ -118,7 +118,7 @@ const ContactScene = () => {
                                 onClick={handleContact}
                                 className="bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-6 rounded-lg w-full transition-all mb-4 flex items-center justify-center gap-2 text-sm"
                             >
-                                <span className={buttonText === "SEND VIA GMAIL" ? "animate-pulse" : ""}>●</span> {buttonText}
+                                <span className={buttonText === "SEND VIA GMAIL" ? "animate-pulse" : ""}>✉</span> {buttonText}
                             </button>
 
                             <div className="text-[10px] text-gray-500 font-mono text-center leading-tight">

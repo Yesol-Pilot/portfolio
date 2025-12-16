@@ -1,14 +1,14 @@
-import { useStore } from '../hooks/useStore';
+import { useStore } from '../../hooks/useStore';
 
 // Scenes
-import BootScene from '../scenes/BootScene';
-import HubScene from '../scenes/HubScene';
-import ProfileScene from '../scenes/ProfileScene';
-import Lab01Scene from '../scenes/Lab01Scene';
-import Lab02Scene from '../scenes/Lab02Scene';
-import Lab03Scene from '../scenes/Lab03Scene';
-import Lab04Scene from '../scenes/Lab04Scene';
-import ContactScene from '../scenes/ContactScene';
+import BootScene from '../../scenes/system/BootScene';
+import HubScene from '../../scenes/main/HubScene';
+import ProfileScene from '../../scenes/main/ProfileScene';
+import Lab01Scene from '../../scenes/labs/Lab01Scene';
+import Lab02Scene from '../../scenes/labs/Lab02Scene';
+import Lab03Scene from '../../scenes/labs/Lab03Scene';
+import Lab04Scene from '../../scenes/labs/Lab04Scene';
+import ContactScene from '../../scenes/main/ContactScene';
 
 const SceneManager = () => {
     const activeScene = useStore((state) => state.currentScene);

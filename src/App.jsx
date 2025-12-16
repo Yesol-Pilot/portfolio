@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import Experience from './components/Experience';
-import Overlay from './components/Overlay';
-import CustomCursor from './components/CustomCursor';
-import ProfileDOM from './components/ProfileDOM';
+import Experience from './components/sections/Experience';
+import Overlay from './components/layout/Overlay';
+import CustomCursor from './components/layout/CustomCursor';
+import ProfileDOM from './components/dom/ProfileDOM';
 import { useStore } from './hooks/useStore';
 
-import GlobalErrorBoundary from './components/GlobalErrorBoundary';
+import GlobalErrorBoundary from './components/core/GlobalErrorBoundary';
 
 function App() {
   return (

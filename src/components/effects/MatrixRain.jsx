@@ -32,7 +32,6 @@ const Stream = ({ startPos, speed, length, size }) => {
                     position={[0, s.offset, 0]}
                     fontSize={size}
                     color="#00ff41"
-                    font="https://fonts.gstatic.com/s/sharetechmono/v15/J7aHnp1uDWRCCytEs2UM2w.woff"
                     fillOpacity={s.opacity}
                     anchorX="center"
                     anchorY="middle"

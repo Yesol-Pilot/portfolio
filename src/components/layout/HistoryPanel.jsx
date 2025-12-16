@@ -1,5 +1,5 @@
 import React from 'react';
-import { patchNotes } from '../data/history';
+import { patchNotes } from '../../data/history';
 
 const HistoryPanel = ({ onClose }) => {
     return (
