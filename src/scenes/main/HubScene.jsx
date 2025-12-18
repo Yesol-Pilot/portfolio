@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text, Float, useCursor, Environment, Stars, Sparkles, Billboard, Html } from '@react-three/drei';
 import { useStore } from '../../hooks/useStore';
@@ -18,7 +18,8 @@ const CosmicNode = ({ position = [0, 0, 0], label, targetScene, color }) => {
     });
 
     // Memoize random values
-    const randomSpeed = useMemo(() => 2 + Math.random(), []);
+    // Memoize random values
+    const [randomSpeed] = useState(() => 2 + Math.random());
 
     // Different geometries for different scenes
     const getGeometry = () => {
@@ -227,7 +228,11 @@ const HubScene = () => {
     ], []);
 
     const groupRefs = useRef(new Array(labs.length).fill(null));
-    const progressRefs = useRef(labs.map(() => Math.random()));
+    const progressRefs = useRef(new Array(labs.length).fill(0));
+
+    useEffect(() => {
+        progressRefs.current = labs.map(() => Math.random());
+    }, [labs]);
 
     useFrame((state, delta) => {
         const speed = useStore.getState().orbitSpeed;

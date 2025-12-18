@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Physics, usePlane, useBox, useSphere } from '@react-three/cannon';
 import { useStore } from '../../hooks/useStore';
 import { Text, Html, Environment, Float, Billboard, Sparkles } from '@react-three/drei';
@@ -90,8 +90,8 @@ const Lab02Scene = () => {
         }
     };
 
-    // Generate random objects
-    const objects = useMemo(() => {
+    // Generate random objects with stable reference
+    const [objects] = useState(() => {
         const objs = [];
         const colors = ['#7c3aed', '#06b6d4', '#facc15', '#ec4899'];
         for (let i = 0; i < 15; i++) {
@@ -103,7 +103,7 @@ const Lab02Scene = () => {
             objs.push({ type, position: [x, y, z], color, id: i });
         }
         return objs;
-    }, []);
+    });
 
     return (
         <group>
