@@ -15,10 +15,10 @@ const Hero = () => {
                     <h2 className="text-xl md:text-2xl font-mono text-cyan-400 mb-4 tracking-widest">
                         HELLO, I AM YESOL HEO
                     </h2>
-                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                        Cinematic <br />
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        Metaverse & XR <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
-                            Metaverse Director
+                            Project Manager
                         </span>
                     </h1>
                     <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">

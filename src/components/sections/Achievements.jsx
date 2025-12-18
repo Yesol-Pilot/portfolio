@@ -5,27 +5,33 @@ const Achievements = () => {
     const achievements = [
         {
             icon: <Trophy className="w-8 h-8 text-yellow-400" />,
-            title: "Best Metaverse Design 2024",
-            org: "K-Metaverse Awards",
-            desc: "가상 전시관 'The Void'로 최우수 디자인상 수상"
+            title: "Grand Prize: Digital Comm.",
+            org: "2024 ICT Awards",
+            desc: "디지털 커뮤니케이션 부문 Grand Prize 수상"
         },
         {
-            icon: <Mic className="w-8 h-8 text-blue-400" />,
-            title: "WebGL Conference Speaker",
-            org: "Tech Art Summit Seoul",
-            desc: "'React Three Fiber로 구현하는 시네마틱 웹' 세션 발표"
+            icon: <Award className="w-8 h-8 text-blue-400" />,
+            title: "Best Experience Design",
+            org: "2024 Web Award Korea",
+            desc: "체험분야 최우수상 수상 (사용자 몰입형 인터페이스)"
         },
         {
             icon: <Award className="w-8 h-8 text-purple-400" />,
-            title: "Excellence in Innovation",
-            org: "Digital Creator Festival",
-            desc: "생성형 AI를 활용한 3D 에셋 파이프라인 구축 사례 선정"
+            title: "Metaverse Sector Grand Prize",
+            org: "2024 Web Award Korea",
+            desc: "메타버스분야 대상 (가상 공간 구축 및 연출)"
+        },
+        {
+            icon: <Award className="w-8 h-8 text-pink-400" />,
+            title: "Cultural Sector Integrated Grand Prize",
+            org: "2024 Web Award Korea",
+            desc: "문화부문 통합대상 (디지털 문화 콘텐츠 혁신)"
         },
         {
             icon: <Newspaper className="w-8 h-8 text-green-400" />,
-            title: "Featured Artist",
-            org: "D.O.M Magazine",
-            desc: "인터뷰: '현실과 가상의 경계를 허무는 크리에이터'"
+            title: "Digital Tech Innovation Bronze",
+            org: "2024 ICT Award Korea",
+            desc: "디지털 기술혁신분야 Bronze Prize 수상"
         }
     ];
 

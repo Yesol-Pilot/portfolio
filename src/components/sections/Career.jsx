@@ -22,7 +22,7 @@ const Career = () => {
                         className="border-l-2 border-cyan-500 pl-8 relative pb-12"
                     >
                         <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_cyan]" />
-                        <h3 className="text-2xl font-bold mb-2">Cinematic Metaverse Director</h3>
+                        <h3 className="text-2xl font-bold mb-2">Metaverse & XR Project Manager</h3>
                         <p className="text-cyan-400 font-mono mb-4">2023 - Present | Freelance Lead</p>
                         <p className="text-gray-300 leading-relaxed">
                             Web 3.0 환경에서의 몰입형 경험을 설계하고 연출합니다.

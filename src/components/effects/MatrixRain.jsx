@@ -1,18 +1,8 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Instance, Instances } from '@react-three/drei';
-import * as THREE from 'three';
+import { Text } from '@react-three/drei';
 
-const Stream = ({ startPos, speed, length, size }) => {
-    const chars = "XYZ01010101";
-    const streams = useMemo(() => {
-        return Array.from({ length }, (_, i) => ({
-            char: chars[Math.floor(Math.random() * chars.length)],
-            offset: i * size * 1.2,
-            opacity: 1 - i / length
-        }));
-    }, [length, size]);
-
+const Stream = ({ startPos, speed, length, size, initialChars }) => {
     const ref = useRef();
 
     useFrame((state, delta) => {
@@ -26,7 +16,7 @@ const Stream = ({ startPos, speed, length, size }) => {
 
     return (
         <group ref={ref} position={startPos}>
-            {streams.map((s, i) => (
+            {initialChars.map((s, i) => (
                 <Text
                     key={i}
                     position={[0, s.offset, 0]}
@@ -44,20 +34,38 @@ const Stream = ({ startPos, speed, length, size }) => {
 };
 
 const MatrixRain = ({ count = 30 }) => {
-    const streams = useMemo(() => {
-        return Array.from({ length: count }, () => ({
-            x: (Math.random() - 0.5) * 40,
-            z: (Math.random() - 0.5) * 20 - 5,
-            speed: 5 + Math.random() * 5,
-            length: 5 + Math.floor(Math.random() * 10),
-            size: 0.5 + Math.random() * 0.3
-        }));
-    }, [count]);
+    // useState lazy init을 사용하여 Math.random()을 초기화 시에만 호출
+    const [streams] = useState(() => {
+        const chars = "XYZ01010101";
+        return Array.from({ length: count }, () => {
+            const streamLength = 5 + Math.floor(Math.random() * 10);
+            const streamSize = 0.5 + Math.random() * 0.3;
+            return {
+                x: (Math.random() - 0.5) * 40,
+                z: (Math.random() - 0.5) * 20 - 5,
+                speed: 5 + Math.random() * 5,
+                length: streamLength,
+                size: streamSize,
+                initialChars: Array.from({ length: streamLength }, (_, i) => ({
+                    char: chars[Math.floor(Math.random() * chars.length)],
+                    offset: i * streamSize * 1.2,
+                    opacity: 1 - i / streamLength
+                }))
+            };
+        });
+    });
 
     return (
         <group>
             {streams.map((props, i) => (
-                <Stream key={i} startPos={[props.x, 15, props.z]} {...props} />
+                <Stream
+                    key={i}
+                    startPos={[props.x, 15, props.z]}
+                    speed={props.speed}
+                    length={props.length}
+                    size={props.size}
+                    initialChars={props.initialChars}
+                />
             ))}
         </group>
     );
