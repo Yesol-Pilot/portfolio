@@ -43,9 +43,9 @@ const Experience = () => {
     return (
         <div className="w-full h-screen fixed inset-0 z-0 bg-black">
             <Canvas
-                dpr={[1, 1]}
+                dpr={[1, 2]} // Optimize for HiDPI screens (max 2x)
                 gl={{
-                    antialias: false,
+                    antialias: true, // Enable AA for smoother edges
                     powerPreference: "high-performance",
                     preserveDrawingBuffer: true
                 }}

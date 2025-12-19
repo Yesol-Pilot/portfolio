@@ -3,7 +3,8 @@ import { Html } from '@react-three/drei';
 const SystemHUD = () => {
     return (
         <Html fullscreen style={{ pointerEvents: 'none' }}>
-            <div className="absolute top-8 right-8 w-64 font-mono text-cyan-500/80">
+            {/* Hidden on mobile, visible on md+ */}
+            <div className="hidden md:block absolute top-8 right-8 w-64 font-mono text-cyan-500/80">
                 <div className="border border-cyan-500/30 bg-black/40 backdrop-blur-md p-4 rounded-lg">
                     <h3 className="text-xs uppercase tracking-[0.2em] border-b border-cyan-500/30 pb-2 mb-2">
                         System Status
