@@ -75,34 +75,59 @@ const InteractiveShape = ({ api, manualRef, children, color }) => {
     );
 };
 
+import { techStackNodes } from '../../data/ProjectData';
+
+// ... (Floor and other imports remain)
+
+const TechBubble = ({ position, node }) => {
+    const [ref, api] = useSphere(() => ({
+        mass: 1,
+        position,
+        args: [1],
+        linearDamping: 0.5,
+        angularDamping: 0.5
+    }));
+
+    return (
+        <InteractiveShape api={api} manualRef={ref} color={node.color}>
+            <sphereGeometry args={[1, 32, 32]} />
+            <Html center distanceFactor={10} style={{ pointerEvents: 'none' }}>
+                <div className="text-white font-bold font-mono text-sm tracking-widest drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]" style={{ whiteSpace: 'nowrap' }}>
+                    {node.name}
+                </div>
+            </Html>
+        </InteractiveShape>
+    );
+};
+
+// ... (InteractiveShape remains)
+
 const Lab02Scene = () => {
     const startWarp = useStore(state => state.startWarp);
-    const [gravity, setGravity] = useState([0, -9.8, 0]);
+    const [gravity, setGravity] = useState([0, -0.5, 0]); // Default slightly floaty for "Living Planet"
     const [zeroG, setZeroG] = useState(false);
 
     const toggleGravity = () => {
         if (zeroG) {
-            setGravity([0, -9.8, 0]);
+            setGravity([0, -0.5, 0]);
             setZeroG(false);
         } else {
-            setGravity([0, 0.5, 0]); // Slight upward float
+            setGravity([0, 0.2, 0]); // Upward float
             setZeroG(true);
         }
     };
 
-    // Generate random objects with organic colors
-    const [objects] = useState(() => {
-        const objs = [];
-        const colors = ['#059669', '#10b981', '#34d399', '#6ee7b7', '#86efac']; // Forest/Emerald Palette
-        for (let i = 0; i < 15; i++) {
-            const x = (Math.random() - 0.5) * 6;
-            const y = 5 + Math.random() * 10;
-            const z = (Math.random() - 0.5) * 6;
-            const type = Math.random() > 0.5 ? 'box' : 'sphere';
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            objs.push({ type, position: [x, y, z], color, id: i });
-        }
-        return objs;
+    // Initialize tech nodes with random positions
+    const [nodes] = useState(() => {
+        return techStackNodes.map((node, i) => ({
+            ...node,
+            position: [
+                (Math.random() - 0.5) * 8,
+                5 + Math.random() * 5,
+                (Math.random() - 0.5) * 8
+            ],
+            id: i
+        }));
     });
 
     return (
@@ -121,19 +146,18 @@ const Lab02Scene = () => {
                         anchorX="center"
                         anchorY="middle"
                     >
-                        THE TERRARIUM [EVOLUTION]
+                        LIVING TECH [ECOSYSTEM]
                     </Text>
                 </Billboard>
             </Float>
 
             <Physics gravity={gravity} iterations={10}>
                 <Floor />
-                {objects.map((obj) => (
-                    obj.type === 'box' ?
-                        <PhysBox key={obj.id} position={obj.position} color={obj.color} /> :
-                        <PhysSphere key={obj.id} position={obj.position} color={obj.color} />
+                {nodes.map((node) => (
+                    <TechBubble key={node.id} position={node.position} node={node} />
                 ))}
             </Physics>
+
 
             {/* Cinematic FX: Spores */}
             <Sparkles count={300} scale={20} size={5} speed={0.4} opacity={0.6} color="#6ee7b7" />

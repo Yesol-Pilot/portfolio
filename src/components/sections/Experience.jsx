@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import CinematicEffects from '../effects/CinematicEffects';
 import SceneManager from '../core/SceneManager';
 import { useStore } from '../../hooks/useStore';
+import WarpController from '../core/WarpController';
 
 const CameraHandler = () => {
     const currentScene = useStore((state) => state.currentScene);
@@ -68,8 +69,8 @@ const Experience = () => {
                 <ambientLight intensity={1} />
                 <SceneManager />
 
-                {/* Reset Fog for non-Hub scenes just in case */}
-                <fog attach="fog" args={['#000000', 50, 200]} />
+                {/* Reset Fog for non-Hub scenes just in case - Disabled to avoid conflict with Lab fogs */}
+                {/* <fog attach="fog" args={['#000000', 50, 200]} /> */}
 
                 <WarpController />
                 <CinematicEffects />

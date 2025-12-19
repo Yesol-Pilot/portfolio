@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Environment, Float, MeshDistortMaterial, Html, Billboard, Sparkles, Caustics } from '@react-three/drei';
+import { Text, Environment, Float, Html, Billboard, Sparkles, Caustics } from '@react-three/drei';
 import { useStore } from '../../hooks/useStore';
 import * as THREE from 'three';
 
@@ -45,7 +45,7 @@ const Lab01Scene = () => {
                 {/* Crystal Geometry */}
                 <mesh ref={meshRef} position={[0, 0, 0]} scale={2}>
                     <icosahedronGeometry args={[1, 0]} /> {/* Low poly for crystal look */}
-                    <MeshDistortMaterial
+                    <meshPhysicalMaterial
                         color={config.color}
                         envMapIntensity={2}
                         clearcoat={1}
@@ -54,8 +54,6 @@ const Lab01Scene = () => {
                         roughness={0}
                         transmission={0.5} // Glass-like
                         thickness={2}
-                        distort={config.distort}
-                        speed={config.speed}
                     />
                 </mesh>
             </Float>

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshDistortionMaterial, Sphere } from '@react-three/drei';
+import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import { LORE } from '../../data/lore';
 
@@ -25,16 +25,14 @@ const CoreSun = () => {
 
     return (
         <group>
-            {/* 1. Main Core (Distorted Sphere) */}
+            {/* 1. Main Core (Bright Sphere) */}
             <Sphere ref={meshRef} args={[1.5, 64, 64]}>
-                <MeshDistortionMaterial
+                <meshStandardMaterial
                     color={coreColor}
                     emissive={coreColor}
                     emissiveIntensity={1}
                     roughness={0.1}
                     metalness={0.8}
-                    distort={0.4} // 일렁임 강도
-                    speed={2}     // 일렁임 속도
                     toneMapped={false}
                 />
             </Sphere>

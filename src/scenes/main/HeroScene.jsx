@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, Text, Instance, Instances } from '@react-three/drei';
 import * as THREE from 'three';
+import { LORE } from '../../data/lore';
 
 const HeroScene = () => {
     const meshRef = useRef();
@@ -64,17 +65,20 @@ const HeroScene = () => {
                 color="#ffffff"
                 anchorX="center"
                 anchorY="middle"
+                anchorY="middle"
             >
                 YESOL HEO
             </Text>
             <Text
                 position={[0, -3.2, 2]}
-                fontSize={0.2}
-                color="#a3a3a3"
+                fontSize={0.15}
+                color="#06b6d4"
                 anchorX="center"
                 anchorY="middle"
+                letterSpacing={0.1}
+                letterSpacing={0.1}
             >
-                METAVERSE & XR DIRECTOR
+                {LORE.ARCHITECT.TITLE.toUpperCase()} | {LORE.ARCHITECT.SUBTITLE.toUpperCase()}
             </Text>
         </group>
     );

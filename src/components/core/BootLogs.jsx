@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Html } from '@react-three/drei';
+import { Html, Billboard } from '@react-three/drei';
+import { useStore } from '../../hooks/useStore';
 
 const BOOT_SEQUENCE = [
     "INITIALIZING KERNEL...",
@@ -19,16 +20,45 @@ const BOOT_SEQUENCE = [
     "SYSTEM READY."
 ];
 
-const getLogColor = (text) => {
-    if (text.includes("FATAL ERROR") || text.includes("COMPROMISED")) return "text-red-500 font-bold drop-shadow-md";
-    if (text.includes("RECOVERY") || text.includes("INTEGRITY") || text.includes("REPAIRING")) return "text-yellow-400";
-    if (text.includes("OK") || text.includes("RESTORED") || text.includes("READY")) return "text-green-400";
-    return "text-green-500";
+const THEMES = {
+    warp: {
+        primary: "text-cyan-400",
+        secondary: "text-cyan-300",
+        border: "border-cyan-500/30",
+        shadow: "shadow-[0_0_20px_rgba(6,182,212,0.2)]",
+        error: "text-red-500"
+    },
+    genesis: {
+        primary: "text-green-400",
+        secondary: "text-green-300",
+        border: "border-green-500/30",
+        shadow: "shadow-[0_0_20px_rgba(0,255,0,0.2)]",
+        error: "text-orange-500"
+    },
+    neural: {
+        primary: "text-purple-400",
+        secondary: "text-purple-300",
+        border: "border-purple-500/30",
+        shadow: "shadow-[0_0_20px_rgba(168,85,247,0.2)]",
+        error: "text-pink-500"
+    }
 };
 
-const BootLogs = ({ onComplete }) => {
+const getLogColor = (text, themeStyles) => {
+    if (text.includes("FATAL ERROR") || text.includes("COMPROMISED")) return `${themeStyles.error} font-bold drop-shadow-md`;
+    if (text.includes("RECOVERY") || text.includes("INTEGRITY") || text.includes("REPAIRING")) return "text-yellow-400";
+    if (text.includes("OK") || text.includes("RESTORED") || text.includes("READY")) return themeStyles.primary;
+    return themeStyles.secondary;
+};
+
+const BootLogs = ({ onComplete, theme = 'genesis' }) => {
     const [logs, setLogs] = useState([]);
     const [index, setIndex] = useState(0);
+    const styles = THEMES[theme] || THEMES.genesis;
+
+    // Stable PID
+    const [pid] = useState(() => Math.floor(Math.random() * 9000) + 1000);
+    const addLog = useStore((state) => state.addLog);
 
     useEffect(() => {
         if (index >= BOOT_SEQUENCE.length) {
@@ -36,36 +66,41 @@ const BootLogs = ({ onComplete }) => {
             return;
         }
 
-        // Variable delay: longer for errors to let them sink in
         const isError = BOOT_SEQUENCE[index].includes("FATAL") || BOOT_SEQUENCE[index].includes("INTEGRITY");
-        const delay = isError ? 800 : Math.random() * 300 + 100;
+        const delay = isError ? 800 : Math.random() * 200 + 50; // 조금 더 빠르게
 
         const timeout = setTimeout(() => {
-            setLogs(prev => [...prev.slice(-8), BOOT_SEQUENCE[index]]); // Keep last 9 lines
+            const currentLog = BOOT_SEQUENCE[index];
+            setLogs(prev => [...prev.slice(-6), currentLog]); // 줄 수 감소 (8->6)
+            addLog(currentLog); // Save to global history
             setIndex(prev => prev + 1);
         }, delay);
 
         return () => clearTimeout(timeout);
-    }, [index, onComplete]);
+    }, [index, onComplete, addLog]);
 
     return (
-        <Html position={[0, -2, 0]} center transform distanceFactor={5} zIndexRange={[100, 0]}>
-            <div className="w-96 font-mono text-xs text-left bg-black/90 p-4 border border-green-500/30 rounded-lg backdrop-blur-md select-none shadow-[0_0_20px_rgba(0,255,0,0.1)]">
-                <div className="border-b border-green-500/30 mb-2 pb-1 text-green-300 font-bold flex justify-between items-center">
-                    <span>SYSTEM_BOOT_LOG</span>
-                    <span className="text-[10px] opacity-70">PID: {Math.floor(Math.random() * 9000) + 1000}</span>
+        <Billboard>
+            <Html position={[0, 0.5, 0]} center transform distanceFactor={5} zIndexRange={[100, 0]} style={{ pointerEvents: 'none' }}>
+                <div className={`w-96 font-mono text-[11px] text-center bg-black/80 p-4 border-2 ${styles.border} backdrop-blur-md select-none rounded-lg shadow-2xl`}>
+                    <div className={`border-b ${styles.border} mb-3 pb-2 ${styles.primary} font-bold flex justify-between items-center opacity-90 tracking-widest`}>
+                        <span>SYSTEM_BOOT_LOG</span>
+                        <span className="opacity-70">PID: {pid}</span>
+                    </div>
+                    <div className="flex flex-col gap-1 min-h-[120px] items-center justify-center">
+                        {logs.map((log, i) => (
+                            <div key={i} className="opacity-90 flex items-center justify-center w-full">
+                                <span className={`mr-2 ${styles.secondary} opacity-50 shrink-0 text-[9px]`}>
+                                    {new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                                </span>
+                                <span className={`${getLogColor(log, styles)} break-words leading-tight`}>{log}</span>
+                            </div>
+                        ))}
+                        <div className={`animate-pulse ${styles.primary} font-bold text-lg mt-1`}>_</div>
+                    </div>
                 </div>
-                <div className="flex flex-col gap-1 min-h-[140px]">
-                    {logs.map((log, i) => (
-                        <div key={i} className="opacity-90 flex items-start">
-                            <span className="mr-2 text-green-800 shrink-0">[{new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}]</span>
-                            <span className={`${getLogColor(log)} break-words leading-tight`}>{log}</span>
-                        </div>
-                    ))}
-                    <div className="animate-pulse text-green-500 font-bold">_</div>
-                </div>
-            </div>
-        </Html>
+            </Html>
+        </Billboard>
     );
 };
 

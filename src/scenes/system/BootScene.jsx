@@ -1,195 +1,76 @@
-import { useState, useRef, useEffect } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { Text, Float, Sparkles, Stars } from '@react-three/drei';
+import { useState, useMemo, Suspense, useEffect } from 'react';
 import { useStore } from '../../hooks/useStore';
 import BootLogs from '../../components/core/BootLogs';
-import MatrixRain from '../../components/effects/MatrixRain';
-import * as THREE from 'three';
+import React from 'react';
+import { EffectComposer, Bloom, Noise, Vignette, ChromaticAberration } from '@react-three/postprocessing';
+import { Html } from '@react-three/drei';
+
+// Lazy load themes to optimize bundle size
+// Lazy load themes to optimize bundle size
+const QuantumWarp = React.lazy(() => import('../../components/boot/QuantumWarp'));
+const DigitalGenesis = React.lazy(() => import('../../components/boot/DigitalGenesis'));
+const NeuralDive = React.lazy(() => import('../../components/boot/NeuralDive'));
+const ClassicMatrix = React.lazy(() => import('../../components/boot/ClassicMatrix'));
 
 const BootScene = () => {
-    const setScene = useStore(state => state.setScene);
-    const [phase, setPhase] = useState(0); // 0: Init, 1: Logo, 2: Access Granted
-    const logoRef = useRef();
-    const { camera } = useThree();
+    const setScene = useStore((state) => state.setScene);
+    const performanceMode = useStore((state) => state.performanceMode);
+    const [isFinished, setIsFinished] = useState(false);
 
-    // Transition to Phase 2 (Logo Glitch) after Phase 1 is set
+    // 1. 랜덤 테마 결정
+    const [theme, setTheme] = useState(null);
+
     useEffect(() => {
-        if (phase === 1) {
-            const timer = setTimeout(() => setPhase(2), 3000);
-            return () => clearTimeout(timer);
-        }
-        if (phase === 2) {
-            const timer = setTimeout(() => setScene('hub'), 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [phase, setScene]);
+        const variants = ['warp', 'genesis', 'neural', 'classic'];
+        const randomTheme = variants[Math.floor(Math.random() * variants.length)];
+        setTheme(randomTheme);
+        console.log(`[System] Boot Theme Selected: ${randomTheme.toUpperCase()}`);
+    }, []);
 
-    // Dramatic camera zoom and logo animation
-    useFrame((state) => {
-        const t = state.clock.getElapsedTime();
+    const handleBootComplete = () => {
+        if (isFinished) return;
+        setIsFinished(true);
+        setTimeout(() => setScene('hub'), 1500); // 텍스트 읽을 시간 확보 (1.5초)
+    };
 
-        if (phase === 1 && logoRef.current) {
-            // Pulsing glow effect
-            logoRef.current.scale.setScalar(1 + Math.sin(t * 3) * 0.1);
-
-            // Random glitch rotation
-            if (Math.random() > 0.95) {
-                logoRef.current.rotation.y += (Math.random() - 0.5) * 0.3;
-            } else {
-                logoRef.current.rotation.y += 0.02;
-            }
-
-            // Camera shake for intensity
-            camera.position.x = Math.sin(t * 10) * 0.02;
-            camera.position.y = Math.cos(t * 8) * 0.02;
-        }
-
-        // Camera zoom in on phase 2
-        if (phase === 2) {
-            camera.position.z = THREE.MathUtils.lerp(camera.position.z, 3, 0.05);
-            camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, 0.1);
-            camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0, 0.1);
-        }
-    });
+    if (!theme) return null;
 
     return (
         <group>
-            {/* Cyberpunk grid background */}
-            <mesh position={[0, -5, -10]} rotation={[-Math.PI / 3, 0, 0]}>
-                <planeGeometry args={[50, 50]} />
-                <meshBasicMaterial color="#001100" wireframe opacity={0.2} transparent />
-            </mesh>
-            <gridHelper args={[50, 50, '#00ff41', '#003311']} position={[0, -5, -5]} rotation={[0, 0, 0]} />
+            {/* 3. 랜덤 테마 렌더링 */}
+            <Suspense fallback={null}>
+                {theme === 'warp' && <QuantumWarp isFinished={isFinished} />}
+                {theme === 'genesis' && <DigitalGenesis isFinished={isFinished} />}
+                {theme === 'neural' && <NeuralDive isFinished={isFinished} />}
+                {theme === 'classic' && <ClassicMatrix isFinished={isFinished} />}
+            </Suspense>
 
-            {/* Matrix Rain Effect */}
-            <MatrixRain count={50} />
-
-            {/* Background stars */}
-            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-
-            {/* Phase 0: System Init Text + Particles */}
-            {phase === 0 && (
-                <group>
-                    {/* Dramatic particles */}
-                    <Sparkles count={300} scale={15} size={3} speed={0.5} opacity={0.6} color="#00ff41" />
-
-                    {/* Glowing title */}
-                    <Text
-                        position={[0, 1, 0]}
-                        fontSize={0.5}
-                        color="#00ff41"
-                        anchorX="center"
-                        anchorY="center"
-                        outlineWidth={0.02}
-                        outlineColor="#003311"
-                    >
-                        SYSTEM_BOOT_SEQUENCE
-                    </Text>
-
-                    {/* When logs finish, Trigger Phase 1 */}
-                    <BootLogs onComplete={() => setPhase(1)} />
-                </group>
+            {/* 4. 포스트 프로세싱 (High Mode Only) */}
+            {performanceMode === 'high' && (
+                <EffectComposer disableNormalPass>
+                    {/* 테마별 미세 조정은 어렵지만 전역적으로 네온 느낌 강화 */}
+                    <Bloom luminanceThreshold={0.5} mipmapBlur intensity={0.4} radius={0.4} />
+                    <Noise opacity={0.02} />
+                    {/* 속도감을 위한 렌즈 왜곡 (최소화) */}
+                    <ChromaticAberration offset={[0.0005, 0.0005]} />
+                    <Vignette eskil={false} offset={0.1} darkness={0.4} />
+                </EffectComposer>
             )}
 
-            {/* Phase 1: Dramatic Logo */}
-            {phase >= 1 && (
+            {/* 5. UI Overlay (Logs & Skip) */}
+            {!isFinished && (
                 <group>
-                    {/* Enhanced particle field */}
-                    <Sparkles count={500} scale={20} size={4} speed={1.5} opacity={phase === 2 ? 0 : 0.8} color="#00ff41" />
+                    <BootLogs onComplete={handleBootComplete} theme={theme} />
 
-                    <group ref={logoRef}>
-                        <Float speed={5} rotationIntensity={0.5} floatIntensity={0.5}>
-                            {/* Outer wireframe shell */}
-                            <mesh position={[0, 0, 0]} scale={1.5}>
-                                <icosahedronGeometry args={[1, 0]} />
-                                <meshStandardMaterial
-                                    color="#00ff41"
-                                    wireframe
-                                    transparent
-                                    opacity={phase === 2 ? 0 : 0.3}
-                                    emissive="#00ff41"
-                                    emissiveIntensity={0.5}
-                                />
-                            </mesh>
-
-                            {/* Middle octahedron */}
-                            <mesh position={[0, 0, 0]}>
-                                <octahedronGeometry args={[1, 0]} />
-                                <meshStandardMaterial
-                                    color="#00ff41"
-                                    wireframe
-                                    transparent
-                                    opacity={phase === 2 ? 0 : 1}
-                                    emissive="#00ff41"
-                                    emissiveIntensity={1}
-                                />
-                            </mesh>
-
-                            {/* Inner core */}
-                            <mesh position={[0, 0, 0]} scale={0.3}>
-                                <sphereGeometry args={[1, 16, 16]} />
-                                <meshStandardMaterial
-                                    color="#00ff41"
-                                    transparent
-                                    opacity={phase === 2 ? 0 : 1}
-                                    emissive="#00ff41"
-                                    emissiveIntensity={3}
-                                />
-                            </mesh>
-                        </Float>
-
-                        {/* Point light for dramatic glow */}
-                        <pointLight position={[0, 0, 0]} intensity={phase === 2 ? 0 : 10} color="#00ff41" distance={10} />
-                    </group>
-
-                    <Text
-                        position={[0, -1.5, 0]}
-                        fontSize={0.3}
-                        color="white"
-                        anchorX="center"
-                        outlineWidth={0.01}
-                        outlineColor="#00ff41"
-                    >
-                        METAVERSE_OS
-                    </Text>
-                </group>
-            )}
-
-            {/* Phase 2: Access Granted - Dramatic entrance */}
-            {phase === 2 && (
-                <group>
-                    {/* Explosive particle burst */}
-                    <Sparkles count={1000} scale={30} size={6} speed={2} opacity={1} color="#00ff41" />
-
-                    <Text
-                        position={[0, 0, 2]}
-                        fontSize={1.2}
-                        color="#00ff41"
-                        anchorX="center"
-                        scale={[1, 1, 1]}
-                        outlineWidth={0.05}
-                        outlineColor="#003311"
-                        letterSpacing={0.1}
-                    >
-                        ACCESS GRANTED
-                    </Text>
-                    <Text
-                        position={[0, -1, 2]}
-                        fontSize={0.35}
-                        color="#00ff41"
-                        anchorX="center"
-                        scale={[1, 1, 1]}
-                        outlineWidth={0.02}
-                        outlineColor="#003311"
-                    >
-                        WELCOME, DIRECTOR.
-                    </Text>
-
-                    {/* Glowing ring effect */}
-                    <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
-                        <torusGeometry args={[3, 0.05, 16, 100]} />
-                        <meshBasicMaterial color="#00ff41" transparent opacity={0.5} />
-                    </mesh>
+                    {/* Skip Button - Bottom Center */}
+                    <Html position={[0, -2, 0]} center zIndexRange={[100, 0]}>
+                        <button
+                            onClick={handleBootComplete}
+                            className="px-6 py-2 border border-white/20 bg-black/40 text-white/50 text-xs font-mono hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm rounded-full tracking-widest"
+                        >
+                            SKIP SEQUENCE
+                        </button>
+                    </Html>
                 </group>
             )}
         </group>

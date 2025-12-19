@@ -1,17 +1,21 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Text, Image, useScroll } from '@react-three/drei';
+import { Text, Image, useScroll, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { projects } from '../../data/ProjectData';
 
-const ProjectNode = ({ position, title, url, rotationSpeed = 0.5 }) => {
+const ProjectNode = ({ position, project, rotationSpeed = 0.5 }) => {
     const meshRef = useRef();
+    const groupRef = useRef();
 
     useFrame((state, delta) => {
         meshRef.current.rotation.y += delta * rotationSpeed;
+        // Keep text facing camera
+        // groupRef.current.lookAt(state.camera.position); 
     });
 
     return (
-        <group position={position}>
+        <group position={position} ref={groupRef}>
             <mesh ref={meshRef}>
                 <planeGeometry args={[3, 2]} />
                 <meshBasicMaterial color="black" transparent opacity={0.8} side={THREE.DoubleSide} />
@@ -20,9 +24,14 @@ const ProjectNode = ({ position, title, url, rotationSpeed = 0.5 }) => {
                     <lineBasicMaterial color="#0891b2" />
                 </lineSegments>
             </mesh>
-            <Text position={[0, -1.2, 0]} fontSize={0.2} color="#ffffff" anchorX="center" anchorY="top">
-                {title}
-            </Text>
+            <group position={[0, -1.2, 0]}>
+                <Text fontSize={0.2} color="#ffffff" anchorX="center" anchorY="top">
+                    {project.title}
+                </Text>
+                <Text position={[0, -0.3, 0]} fontSize={0.1} color="#aaaaaa" anchorX="center" anchorY="top">
+                    {project.description}
+                </Text>
+            </group>
         </group>
     );
 };
@@ -32,26 +41,34 @@ const WorkScene = () => {
     const scroll = useScroll();
 
     useFrame(() => {
-        // Rotation controlled by scroll
-        // Page 1 is where WorkScene starts (roughly)
-        // We want to rotate the whole system as user scrolls
-        const r = scroll.range(1 / 5, 1 / 5); // Example range
+        const r = scroll.range(1 / 5, 1 / 5);
         if (groupRef.current) {
             groupRef.current.rotation.y = r * Math.PI * 2;
         }
     });
 
+    const radius = 4;
+
     return (
-        <group position={[0, -10, 0]} ref={groupRef}> {/* Positioned lower for scroll flow */}
+        <group position={[0, -10, 0]} ref={groupRef}>
             {/* Orbital System */}
-            <ProjectNode position={[0, 0, 4]} title="We Canvas" />
-            <ProjectNode position={[4, 0, 0]} title="Safety VR" />
-            <ProjectNode position={[0, 0, -4]} title="Metaverse ZEP" />
-            <ProjectNode position={[-4, 0, 0]} title="Digital Twin" />
+            {projects.map((project, index) => {
+                const angle = (index / projects.length) * Math.PI * 2;
+                const x = Math.cos(angle) * radius;
+                const z = Math.sin(angle) * radius;
+                return (
+                    <ProjectNode
+                        key={project.id}
+                        position={[x, 0, z]}
+                        project={project}
+                        rotationSpeed={0.2}
+                    />
+                );
+            })}
 
             {/* Orbit Rings */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
-                <ringGeometry args={[3.8, 4.2, 64]} />
+                <ringGeometry args={[radius - 0.2, radius + 0.2, 64]} />
                 <meshBasicMaterial color="#ffffff" transparent opacity={0.05} side={THREE.DoubleSide} />
             </mesh>
         </group>

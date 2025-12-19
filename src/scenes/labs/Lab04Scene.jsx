@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, Html, PerspectiveCamera, OrbitControls, Float, Billboard, Sparkles } from '@react-three/drei';
 import { useStore } from '../../hooks/useStore';
@@ -90,8 +90,39 @@ const MatrixEffect = () => {
     );
 };
 
+const GlitchText = ({ text, position, fontSize, color }) => {
+    const group = useRef();
+
+    useFrame(() => {
+        if (!group.current) return;
+        if (Math.random() > 0.95) {
+            group.current.position.x = position[0] + (Math.random() - 0.5) * 0.1;
+            group.current.position.y = position[1] + (Math.random() - 0.5) * 0.1;
+        } else {
+            group.current.position.set(...position);
+        }
+    });
+
+    return (
+        <group ref={group} position={position}>
+            <Text position={[0.02, 0, 0]} fontSize={fontSize} color="cyan" opacity={0.5} anchorX="center">{text}</Text>
+            <Text position={[-0.02, 0, 0]} fontSize={fontSize} color="red" opacity={0.5} anchorX="center">{text}</Text>
+            <Text position={[0, 0, 0]} fontSize={fontSize} color={color} anchorX="center">{text}</Text>
+        </group>
+    );
+};
+
+// ... (Previous components)
+
 const Lab04Scene = () => {
     const startWarp = useStore(state => state.startWarp);
+
+    // Use state lazy initializer for stable random values
+    const [randomLogs] = useState(() => {
+        return Array.from({ length: 5 }).map(() =>
+            `0x${Math.floor(Math.random() * 16777215).toString(16)} 0000 0000 ...`
+        );
+    });
 
     return (
         <group>
@@ -109,11 +140,9 @@ const Lab04Scene = () => {
                     </lineSegments>
                 </mesh>
 
-                {/* Header */}
+                {/* Header with Glitch Effect */}
                 <Billboard>
-                    <Text position={[0, 1.5, 0]} fontSize={0.3} color="#ef4444">
-                        THE GLITCH [FATAL ERROR]
-                    </Text>
+                    <GlitchText text="THE GLITCH [FATAL ERROR]" position={[0, 1.5, 0]} fontSize={0.3} color="#ef4444" />
                 </Billboard>
                 <Billboard>
                     <Text position={[0, 1.1, 0]} fontSize={0.12} color="#ef4444" anchorX="center">
@@ -131,9 +160,16 @@ const Lab04Scene = () => {
                         <p>&gt; [INFO] ATTEMPTING CONTAINMENT...</p>
                         <p>&gt; [NETWORK] CONNECTION UNSTABLE</p>
                         <p className="animate-pulse font-bold mt-4">&gt; _SYSTEM BREACH IMMINENT_</p>
+                        <p className="opacity-50 mt-2">&gt; DUMPING MEMORY STACK...</p>
+                        {randomLogs.map((log, i) => (
+                            <p key={i} className="text-xs opacity-70">
+                                {log}
+                            </p>
+                        ))}
                     </div>
                 </Html>
             </group>
+
 
             {/* Floating Wireframe Objects */}
             <Float speed={5} rotationIntensity={2} floatIntensity={1}>

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { MeshPhysicalMaterial, Sphere, Sparkles, MeshDistortionMaterial } from '@react-three/drei';
+import { Sphere, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
 // 💎 Lab 01: Crystalline Planet
@@ -18,7 +18,7 @@ const CrystalPlanet = ({ color }) => {
         <group ref={groupRef}>
             {/* Outer Shell */}
             <Sphere args={[1, 32, 32]}>
-                <MeshPhysicalMaterial
+                <meshPhysicalMaterial
                     roughness={0}
                     transmission={1} // 유리처럼 투명하게
                     thickness={2}   // 굴절 두께
@@ -43,19 +43,20 @@ const CrystalPlanet = ({ color }) => {
 
 // 🌿 Lab 02: Living Planet (Organic)
 const OrganicPlanet = ({ color }) => {
+
     const meshRef = useRef();
 
     // Simple custom shader or distortion for breathing effect
     // Using MeshDistortionMaterial for organic feel
     return (
         <group>
-            <Sphere ref={meshRef} args={[1, 64, 64]}>
-                <MeshDistortionMaterial
-                    color={color}
-                    roughness={0.4}
-                    metalness={0.2}
-                    distort={0.3}
-                    speed={1.5}
+            <Sphere args={[1, 32, 32]} ref={meshRef}> {/* Adjusted args to match snippet, assuming 1 is default size */}
+                <meshStandardMaterial
+                    color={color} // Use original 'color' prop
+                    emissive={color} // Use original 'color' prop
+                    emissiveIntensity={0.2}
+                    roughness={0.7}
+                    metalness={0.3}
                 />
             </Sphere>
             {/* Spores/Pollen */}

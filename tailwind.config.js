@@ -16,7 +16,9 @@ export default {
         muted: '#525252',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Pretendard', 'Inter', 'sans-serif'],
+        mono: ['Rajdhani', 'Roboto Mono', 'monospace'],
+        orbitron: ['Orbitron', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',

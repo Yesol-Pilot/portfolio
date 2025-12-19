@@ -230,6 +230,49 @@ const WireframeWave = ({ analyser, mode }) => {
     );
 };
 
+// ... (Previous imports)
+
+const PulsatingCore = ({ analyser, mode }) => {
+    const meshRef = useRef();
+    const dataArray = useMemo(() => new Uint8Array(32), []);
+
+    useFrame((state) => {
+        if (!meshRef.current) return;
+
+        let intensity = 0;
+        if (mode === 'mic' && analyser) {
+            analyser.getByteFrequencyData(dataArray);
+            // Average of lower frequencies for bass kick
+            intensity = dataArray.slice(0, 10).reduce((a, b) => a + b, 0) / 10 / 255;
+        } else {
+            intensity = (Math.sin(state.clock.elapsedTime * 4) * 0.5 + 0.5) * 0.8;
+        }
+
+        const scale = 1 + intensity * 0.5;
+        meshRef.current.scale.set(scale, scale, scale);
+
+        // Color pulse
+        const mat = meshRef.current.material;
+        if (mat) {
+            mat.emissiveIntensity = 0.5 + intensity * 2;
+        }
+    });
+
+    return (
+        <mesh ref={meshRef} position={[0, 0, 0]}>
+            <sphereGeometry args={[1.5, 64, 64]} />
+            <meshPhysicalMaterial
+                color="#7c3aed"
+                emissive="#4c1d95"
+                roughness={0.2}
+                metalness={0.8}
+                clearcoat={1}
+                clearcoatRoughness={0.1}
+            />
+        </mesh>
+    );
+};
+
 const Lab03Scene = () => {
     const startWarp = useStore(state => state.startWarp);
     const [mode, setMode] = useState('demo');
@@ -238,31 +281,31 @@ const Lab03Scene = () => {
 
     return (
         <group>
-            {/* Thematic Background - Deep Sonic Void */}
-            <color attach="background" args={['#0f172a']} />
-            <fogExp2 attach="fog" args={['#0f172a', 0.05]} />
-            <Environment preset="studio" />
+            {/* Thematic Background - Deep Cosmic Void */}
+            <color attach="background" args={['#020617']} />
+            <fogExp2 attach="fog" args={['#020617', 0.04]} />
+            <Environment preset="city" />
 
             <Billboard>
-                <Text position={[0, 6, -5]} fontSize={0.6} color="#f59e0b" anchorX="center">
-                    THE RESONANCE [HARMONICS]
+                <Text position={[0, 6, -5]} fontSize={0.6} color="#d8b4fe" anchorX="center">
+                    SONIC GIANT [HARMONICS]
                 </Text>
             </Billboard>
 
-            {/* UI Controls - pointerEvents로 드래그와 분리 */}
+            {/* UI Controls */}
             <Html position={[0, 3.5, 0]} center transform distanceFactor={5} style={{ pointerEvents: 'auto' }}>
-                <div className="flex gap-4 p-4 bg-black/80 rounded border border-amber-500/30 backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.2)]" style={{ pointerEvents: 'auto' }}>
+                <div className="flex gap-4 p-4 bg-black/80 rounded-xl border border-purple-500/30 backdrop-blur-md shadow-[0_0_30px_rgba(139,92,246,0.3)]" style={{ pointerEvents: 'auto' }}>
                     <button
                         onClick={() => { playClick(); setMode('demo'); }}
                         onPointerEnter={playHover}
-                        className={`px-4 py-1 rounded font-mono text-xs transition-all cursor-pointer ${mode === 'demo' ? 'bg-amber-600 text-white shadow-[0_0_10px_orange]' : 'text-amber-500 hover:bg-amber-900/50'}`}
+                        className={`px-4 py-1 rounded font-mono text-xs transition-all cursor-pointer ${mode === 'demo' ? 'bg-purple-600 text-white shadow-[0_0_15px_#7c3aed]' : 'text-purple-500 hover:bg-purple-900/50'}`}
                     >
                         DEMO_FREQUENCY
                     </button>
                     <button
                         onClick={() => { playClick(); setMode('mic'); }}
                         onPointerEnter={playHover}
-                        className={`px-4 py-1 rounded font-mono text-xs transition-all cursor-pointer ${mode === 'mic' ? 'bg-blue-600 text-white shadow-[0_0_10px_blue]' : 'text-blue-500 hover:bg-blue-900/50'}`}
+                        className={`px-4 py-1 rounded font-mono text-xs transition-all cursor-pointer ${mode === 'mic' ? 'bg-cyan-600 text-white shadow-[0_0_15px_#0891b2]' : 'text-cyan-500 hover:bg-cyan-900/50'}`}
                     >
                         LIVE_INPUT
                     </button>
@@ -278,6 +321,7 @@ const Lab03Scene = () => {
             </Html>
 
             <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+                <PulsatingCore analyser={analyser} mode={mode} />
                 <Bars analyser={analyser} mode={mode} />
             </Float>
 
@@ -285,8 +329,8 @@ const Lab03Scene = () => {
 
             <Particles analyser={analyser} mode={mode} />
 
-            {/* Floor Reflection Grid - Gold */}
-            <gridHelper args={[50, 50, 0xf59e0b, 0x1e293b]} position={[0, -4, 0]} />
+            {/* Floor Reflection Grid - Galactic Purple */}
+            <gridHelper args={[50, 50, 0x7c3aed, 0x1e1b4b]} position={[0, -4, 0]} />
         </group>
     );
 };

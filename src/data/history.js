@@ -1,5 +1,17 @@
 export const patchNotes = [
     {
+        version: "v1.4.0",
+        date: "2025-12-19",
+        title: "MULTIVERSE LABS EXPANSION",
+        changes: [
+            "Implemented 3 Distinct Lab Concepts (Organic, Audio, Glitch)",
+            "Populated 'Work' universe with actual project data",
+            "Added dynamic Tech Stack visualization in Lab 02",
+            "Enhanced Audio Visualizer in Lab 03 with pulsating core",
+            "Created 'Glitch Moon' environment for Lab 04"
+        ]
+    },
+    {
         version: "v1.3.0",
         date: "2025-12-18",
         title: "CONTENT SYNCHRONIZATION",

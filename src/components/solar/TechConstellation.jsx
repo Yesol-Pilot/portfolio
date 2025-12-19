@@ -19,7 +19,7 @@ const SkillStar = ({ position, label }) => {
                     position={[0.2, 0.2, 0]}
                     fontSize={0.2}
                     color="rgba(255,255,255,0.5)"
-                    font="/fonts/Geist-Regular.ttf"
+                    color="rgba(255,255,255,0.5)"
                     anchorX="left"
                     anchorY="bottom"
                 >

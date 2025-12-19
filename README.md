@@ -1,16 +1,82 @@
-# React + Vite
+# 🌌 Cinematic Multiverse Lab
+>
+> **"Code is the DNA of a new reality."**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Cinematic Multiverse Lab**은 단순한 포트폴리오 웹사이트가 아닌, 개발자 **허예솔(Yesol Heo)**의 기술적 상상력이 시각화된 **디지털 실험실**입니다. React와 Three.js를 활용하여, 웹 브라우저 상에서 몰입감 있는 3D 메타버스 경험을 제공합니다.
 
-Currently, two official plugins are available:
+🔗 **Live Portal**: [https://heoyesol.kr](https://heoyesol.kr)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🧭 The Sectors (주요 기능)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+이 프로젝트는 **'차원 실험실(Dimension Lab)'**이라는 컨셉 아래 4개의 구역으로 나뉩니다.
 
-## Expanding the ESLint configuration
+- **🛸 Sector 01: The Gateway (Main)**
+  - 방문자를 맞이하는 3D 허브 공간.
+  - 전체 내비게이션 및 포털 역할.
+- **🧬 Sector 02: Bio-Data Lab (Creatures)**
+  - 생성형 AI와 알고리즘으로 탄생한 '크리처'들을 관리하고 수집하는 공간.
+  - 가차(Gacha) 시스템 및 도감 기능 포함.
+- **📚 Sector 03: The Archive (Portfolio)**
+  - 개발자의 이력, 프로젝트, 기술 스택을 홀로그램 인터페이스로 열람.
+- **🚧 Sector 04: The Flux (Debug)**
+  - 와이어프레임 쉐이더와 물리 엔진 실험이 이루어지는 개발자 전용 공간.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack (기술 스택)
+
+### Core
+
+- **React 18**
+- **Vite**
+- **JavaScript (ES6+)**
+
+### 3D & Graphics
+
+- **Three.js**
+- **@react-three/fiber (R3F)**
+- **@react-three/drei**
+- **@react-three/postprocessing** (Bloom, Vignette, Glitch)
+- **GSAP** (Cinematic Animations)
+
+### Styling & UI
+
+- **TailwindCSS**
+- **Sass (SCSS)**
+- **Framer Motion**
+
+### State Management
+
+- **Zustand**
+
+---
+
+## 🚀 Getting Started (로컬 실행)
+
+이 차원에 접속하려면 다음 절차를 따르십시오.
+
+\`\`\`bash
+
+# 1. Repository Clone
+
+git clone <https://github.com/ysh1537/portfolio.git>
+
+# 2. Install Dependencies
+
+npm install
+
+# 3. Initialize Server
+
+npm run dev
+\`\`\`
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+Created by **Yesol Heo** (Dimension Architect).
