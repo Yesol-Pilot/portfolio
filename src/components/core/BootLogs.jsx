@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Html, Billboard } from '@react-three/drei';
 import { useStore } from '../../hooks/useStore';
 
 const BOOT_SEQUENCE = [
@@ -41,6 +40,13 @@ const THEMES = {
         border: "border-purple-500/30",
         shadow: "shadow-[0_0_20px_rgba(168,85,247,0.2)]",
         error: "text-pink-500"
+    },
+    classic: { // Added classic theme support if needed or fallback
+        primary: "text-green-500",
+        secondary: "text-green-400",
+        border: "border-green-500/30",
+        shadow: "shadow-[0_0_20px_rgba(0,255,0,0.2)]",
+        error: "text-red-500"
     }
 };
 
@@ -67,12 +73,12 @@ const BootLogs = ({ onComplete, theme = 'genesis' }) => {
         }
 
         const isError = BOOT_SEQUENCE[index].includes("FATAL") || BOOT_SEQUENCE[index].includes("INTEGRITY");
-        const delay = isError ? 800 : Math.random() * 200 + 50; // 조금 더 빠르게
+        const delay = isError ? 800 : Math.random() * 200 + 50;
 
         const timeout = setTimeout(() => {
             const currentLog = BOOT_SEQUENCE[index];
-            setLogs(prev => [...prev.slice(-6), currentLog]); // 줄 수 감소 (8->6)
-            addLog(currentLog); // Save to global history
+            setLogs(prev => [...prev.slice(-8), currentLog]); // Show slightly more lines in 2D
+            addLog(currentLog);
             setIndex(prev => prev + 1);
         }, delay);
 
@@ -80,27 +86,25 @@ const BootLogs = ({ onComplete, theme = 'genesis' }) => {
     }, [index, onComplete, addLog]);
 
     return (
-        <Billboard>
-            <Html position={[0, 0.5, 0]} center transform distanceFactor={5} zIndexRange={[100, 0]} style={{ pointerEvents: 'none' }}>
-                <div className={`w-96 font-mono text-[11px] text-center bg-black/80 p-4 border-2 ${styles.border} backdrop-blur-md select-none rounded-lg shadow-2xl`}>
-                    <div className={`border-b ${styles.border} mb-3 pb-2 ${styles.primary} font-bold flex justify-between items-center opacity-90 tracking-widest`}>
-                        <span>SYSTEM_BOOT_LOG</span>
-                        <span className="opacity-70">PID: {pid}</span>
-                    </div>
-                    <div className="flex flex-col gap-1 min-h-[120px] items-center justify-center">
-                        {logs.map((log, i) => (
-                            <div key={i} className="opacity-90 flex items-center justify-center w-full">
-                                <span className={`mr-2 ${styles.secondary} opacity-50 shrink-0 text-[9px]`}>
-                                    {new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-                                </span>
-                                <span className={`${getLogColor(log, styles)} break-words leading-tight`}>{log}</span>
-                            </div>
-                        ))}
-                        <div className={`animate-pulse ${styles.primary} font-bold text-lg mt-1`}>_</div>
-                    </div>
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
+            <div className={`w-[400px] font-mono text-xs text-center bg-black/80 p-6 border-2 ${styles.border} backdrop-blur-md select-none rounded-lg shadow-2xl transition-all duration-300`}>
+                <div className={`border-b ${styles.border} mb-4 pb-2 ${styles.primary} font-bold flex justify-between items-center opacity-90 tracking-widest`}>
+                    <span>SYSTEM_BOOT_LOG</span>
+                    <span className="opacity-70">PID: {pid}</span>
                 </div>
-            </Html>
-        </Billboard>
+                <div className="flex flex-col gap-1 min-h-[160px] items-center justify-center">
+                    {logs.map((log, i) => (
+                        <div key={i} className="opacity-90 flex items-center w-full text-left pl-2">
+                            <span className={`mr-3 ${styles.secondary} opacity-50 shrink-0 text-[10px]`}>
+                                {new Date().toLocaleTimeString('en-US', { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                            </span>
+                            <span className={`${getLogColor(log, styles)} break-words leading-tight`}>{log}</span>
+                        </div>
+                    ))}
+                    <div className={`animate-pulse ${styles.primary} font-bold text-lg mt-1`}>_</div>
+                </div>
+            </div>
+        </div>
     );
 };
 

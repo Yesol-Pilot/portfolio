@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '../../hooks/useStore';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,12 +19,14 @@ const Navbar = () => {
     // Scroll Spy Logic
     useEffect(() => {
         const handleSpy = () => {
-            const sections = ['hero', 'work', 'expertise', 'achievements'];
+            const sections = ['hero', 'about', 'work', 'expertise', 'achievements']; // Added 'about'
             const scrollPosition = window.scrollY + 100; // Offset
 
             for (const section of sections) {
                 const element = document.getElementById(section);
                 if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight) > scrollPosition) {
+                    setActiveSection(section === 'achievements' ? 'awards' : section); // Map achievements id to awards logic id if needed, but nav uses 'achievements' id.
+                    // Wait, activeSection === link.id. link.id for Awards is 'achievements'. So just set section.
                     setActiveSection(section);
                     return;
                 }
@@ -54,15 +56,16 @@ const Navbar = () => {
     // Reordered to match ProfileScene: Work -> Expertise -> Process(Achievements)
     const navLinks = [
         { name: 'Home', action: () => handleNav('hub'), id: 'hub' },
-        { name: 'Work', action: () => handleNav('profile', 'work'), id: 'work' },
+        { name: 'About', action: () => handleNav('profile', 'about'), id: 'about' },
+        { name: 'Experience', action: () => handleNav('profile', 'work'), id: 'work' }, // Work -> Experience
         { name: 'Expertise', action: () => handleNav('profile', 'expertise'), id: 'expertise' },
-        { name: 'Process', action: () => handleNav('profile', 'achievements'), id: 'achievements' },
+        { name: 'Awards', action: () => handleNav('profile', 'achievements'), id: 'achievements' }, // Process -> Awards
         { name: 'Contact', action: () => handleNav('contact'), id: 'contact' },
-        { name: 'History', action: () => setScene('history'), id: 'history' }, // Added History
+        { name: 'History', action: () => setScene('history'), id: 'history' },
     ];
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 pointer-events-none ${scrolled ? 'bg-background/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 pointer-events-none bg-black/60 backdrop-blur-md border-b border-white/10 ${scrolled ? 'py-3' : 'py-4'}`}>
             <div className="container mx-auto px-6 flex justify-between items-center">
                 <button onClick={() => setScene('hub')} className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent pointer-events-auto">
                     Yesol Heo

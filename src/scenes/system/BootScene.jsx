@@ -18,14 +18,12 @@ const BootScene = () => {
     const [isFinished, setIsFinished] = useState(false);
 
     // 1. 랜덤 테마 결정
-    const [theme, setTheme] = useState(null);
-
-    useEffect(() => {
+    const [theme] = useState(() => {
         const variants = ['warp', 'genesis', 'neural', 'classic'];
-        const randomTheme = variants[Math.floor(Math.random() * variants.length)];
-        setTheme(randomTheme);
-        console.log(`[System] Boot Theme Selected: ${randomTheme.toUpperCase()}`);
-    }, []);
+        const selected = variants[Math.floor(Math.random() * variants.length)];
+        console.log(`[System] Boot Theme Selected: ${selected.toUpperCase()}`);
+        return selected;
+    });
 
     const handleBootComplete = () => {
         if (isFinished) return;
@@ -60,7 +58,9 @@ const BootScene = () => {
             {/* 5. UI Overlay (Logs & Skip) */}
             {!isFinished && (
                 <group>
-                    <BootLogs onComplete={handleBootComplete} theme={theme} />
+                    <Html fullscreen zIndexRange={[100, 0]}>
+                        <BootLogs onComplete={handleBootComplete} theme={theme} />
+                    </Html>
 
                     {/* Skip Button - Bottom Center */}
                     <Html position={[0, -2, 0]} center zIndexRange={[100, 0]}>
