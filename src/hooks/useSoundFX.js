@@ -94,9 +94,33 @@ const useSoundFX = () => {
         } catch (e) {
             console.warn('Audio FX Error:', e);
         }
-    }, [getContext]);
+        osc.frequency.setValueAtTime(100, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(2000, ctx.currentTime + 1.5);
 
-    return { playHover, playClick, playTransition };
-};
+        osc.type = 'sawtooth';
+
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.5);
+        gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.5);
+
+        // Add reverb-ish effect (Low pass opening)
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(200, ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(5000, ctx.currentTime + 1.0);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start();
+        osc.stop(ctx.currentTime + 1.5);
+    } catch (e) {
+        console.warn('Audio FX Error:', e);
+    }
+}, [getContext]);
+
+return { playHover, playClick, playTransition, playWarp };
+    };
 
 export default useSoundFX;

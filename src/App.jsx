@@ -3,28 +3,29 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Experience from './components/sections/Experience';
 import Overlay from './components/layout/Overlay';
 import CustomCursor from './components/layout/CustomCursor';
+import SoundManager from './components/core/SoundManager';
 import ProfileDOM from './components/dom/ProfileDOM';
 import { useStore } from './hooks/useStore';
 
 import GlobalErrorBoundary from './components/core/GlobalErrorBoundary';
+import { LORE } from './data/lore';
 
 function App() {
   const currentScene = useStore((state) => state.currentScene);
-  const setScene = useStore((state) => state.setScene);
 
-  // Sync Scene with URL Query
+  // Always start from boot scene on refresh (no scene param sync on mount)
+  // URL sync: only update URL for non-boot scenes
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const sceneParam = params.get('scene');
-    if (sceneParam && ['boot', 'hub', 'lab01', 'lab02', 'lab03', 'lab04', 'contact', 'profile'].includes(sceneParam)) {
-      setScene(sceneParam);
+    if (currentScene !== 'boot') {
+      const url = new URL(window.location);
+      url.searchParams.set('scene', currentScene);
+      window.history.pushState({}, '', url);
+    } else {
+      // Clear scene param when on boot
+      const url = new URL(window.location);
+      url.searchParams.delete('scene');
+      window.history.replaceState({}, '', url);
     }
-  }, [setScene]);
-
-  useEffect(() => {
-    const url = new URL(window.location);
-    url.searchParams.set('scene', currentScene);
-    window.history.pushState({}, '', url);
   }, [currentScene]);
 
   return (
@@ -39,7 +40,7 @@ function App() {
           <CustomCursor />
 
           {/* 3D Scene Layer */}
-          <Suspense fallback={<div className="flex items-center justify-center h-screen text-white font-mono">INITIALIZING SYSTEM...</div>}>
+          <Suspense fallback={<div className="flex items-center justify-center h-screen text-white font-mono text-xl animate-pulse tracking-widest">{LORE.SYSTEM.LOADING}</div>}>
             <Experience />
           </Suspense>
 
