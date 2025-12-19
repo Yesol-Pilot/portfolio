@@ -4,6 +4,7 @@ import { Sphere, Sparkles, MeshDistortMaterial, Billboard, Html } from '@react-t
 import * as THREE from 'three';
 import { LORE } from '../../data/lore';
 import useSoundFX from '../../hooks/useSoundFX';
+import { useStore } from '../../hooks/useStore';
 
 const CoreSun = () => {
     const meshRef = useRef();
@@ -40,17 +41,22 @@ const CoreSun = () => {
                 setHovered(false);
                 document.body.style.cursor = 'auto';
             }}
-            onClick={(e) => {
-                e.stopPropagation(); // Parent onClick might duplicate
-                playClick();
-                // Parent SolarSystem handles navigation, or we bubble up? 
-                // Currently SolarSystem has group onClick. Let's let it bubble or handle here.
-                // Actually SolarSystem wraps this in onClick, so bubbling is fine if we don't stopPropagation.
-                // But we want sound.
-            }}
         >
-            {/* 1. Main Plasma Core - Relaxed */}
-            <Sphere ref={meshRef} args={[2.2, 64, 64]}>
+            {/* 1. Main Plasma Core - Relaxed (Clickable Target) */}
+            <Sphere
+                ref={meshRef}
+                args={[2.2, 64, 64]}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    playClick();
+                    // Call parent handler via bubbling or direct store access if needed
+                    // Since SolarSystem wraps this in a Group with onClick, we must ensure propagation or handle it here.
+                    // The user reported "Identity is not clickable".
+                    // The safest bet is to handle navigation directly here.
+                    const setScene = useStore.getState().setScene;
+                    setScene('profile');
+                }}
+            >
                 <MeshDistortMaterial
                     color={coreColor}
                     emissive={coreColor}
@@ -108,7 +114,7 @@ const CoreSun = () => {
                     </div>
                 </Html>
             </Billboard>
-        </group>
+        </group >
     );
 };
 

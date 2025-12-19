@@ -12,7 +12,7 @@ const WarpController = () => {
     const warpTargetPosition = useStore((state) => state.warpTargetPosition);
     const warpTarget = useStore((state) => state.warpTarget);
     const finishWarp = useStore((state) => state.finishWarp);
-    const setWarping = useStore((state) => state.setWarping); // Assuming this might be needed, but mostly startWarp handles it. Checking store, it uses startWarp.
+
     // Store only has startWarp/finishWarp. 
 
     // We need playWarp sound
@@ -24,8 +24,6 @@ const WarpController = () => {
 
     // Let's import useSoundFX
     // Wait, useSoundFX is a hook.
-
-    const [showVisuals, setShowVisuals] = useState(false);
 
     // Target position ref to avoid closure staleness in useFrame
     const targetRef = useRef(new THREE.Vector3());
@@ -60,16 +58,9 @@ const WarpController = () => {
                 }
             });
 
-            if (!showVisuals) setShowVisuals(true);
-
-            return () => {
-                tl.kill();
-            };
-        } else {
-            if (showVisuals) setShowVisuals(false);
-            if (controls && !isWarping) controls.enabled = true;
+            if (controls) controls.enabled = true;
         }
-    }, [isWarping, camera, finishWarp, warpTargetPosition, controls, showVisuals]);
+    }, [isWarping, camera, finishWarp, warpTargetPosition, controls]);
 
     // Force camera to look at target during warp
     useFrame(() => {
@@ -84,11 +75,7 @@ const WarpController = () => {
         }
     }, 100); // High priority
 
-    return (
-        <>
-            {showVisuals && <QuantumWarp />}
-        </>
-    );
+    return null;
 };
 
 export default WarpController;
