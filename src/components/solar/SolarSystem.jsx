@@ -14,8 +14,10 @@ const PlanetaryOrbit = ({ lab, config }) => {
     const groupRef = useRef();
     const planetRef = useRef();
     const startWarp = useStore(state => state.startWarp);
+    const hoveredPlanet = useStore(state => state.hoveredPlanet); // Get global hover state
     const { playClick, playHover } = useSoundFX();
-    const [hovered, setHovered] = useState(false);
+    // Combine local hover and global hover (from Dock)
+    const isActive = hovered || hoveredPlanet === config.target;
 
     // Random start position
     const [startAngle] = useState(() => Math.random() * Math.PI * 2);
@@ -47,7 +49,7 @@ const PlanetaryOrbit = ({ lab, config }) => {
                 <ringGeometry args={[config.xRadius, config.xRadius + 0.05, 64]} />
                 <meshBasicMaterial
                     color={config.color}
-                    opacity={hovered ? 0.4 : 0.1}
+                    opacity={isActive ? 0.4 : 0.1}
                     transparent
                     side={THREE.DoubleSide}
                 />
@@ -88,7 +90,7 @@ const PlanetaryOrbit = ({ lab, config }) => {
                 <PlanetFactory type={lab.type} color={lab.visual.color} />
 
                 {/* Hover Effect: Targeting Ring */}
-                {hovered && (
+                {isActive && (
                     <mesh rotation={[-Math.PI / 2, 0, 0]}>
                         <ringGeometry args={[1.2, 1.3, 32]} />
                         <meshBasicMaterial color={config.color} transparent opacity={0.8} side={THREE.DoubleSide} />
@@ -97,7 +99,7 @@ const PlanetaryOrbit = ({ lab, config }) => {
 
                 {/* 3. Label (Always facing camera) */}
                 <Billboard position={[0, -1.8, 0]}>
-                    <TextLabel text={lab.name} color={config.color} hovered={hovered} />
+                    <TextLabel text={lab.name} color={config.color} hovered={isActive} />
                 </Billboard>
             </group>
         </group>

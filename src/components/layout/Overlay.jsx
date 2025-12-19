@@ -1,6 +1,7 @@
 import { useStore } from '../../hooks/useStore';
 import HistoryPanel from './HistoryPanel';
 import Navbar from './Navbar';
+import NavigationDock from './NavigationDock';
 
 const Overlay = () => {
     const currentScene = useStore((state) => state.currentScene);
@@ -8,8 +9,6 @@ const Overlay = () => {
     const isMuted = useStore((state) => state.isMuted);
     const toggleMute = useStore((state) => state.toggleMute);
     const performanceMode = useStore((state) => state.performanceMode);
-    const orbitSpeed = useStore((state) => state.orbitSpeed);
-    const setOrbitSpeed = useStore((state) => state.setOrbitSpeed);
 
     return (
         <div className="fixed inset-0 pointer-events-none z-40 text-xs font-mono select-none">
@@ -60,6 +59,9 @@ const Overlay = () => {
                     </div>
                 </button>
             </div>
+
+            {/* Quick Navigation Dock (Visible only in Hub) */}
+            {currentScene === 'hub' && <NavigationDock />}
 
             {/* Bottom Left Status */}
             <div className="fixed bottom-10 left-10 text-xs text-muted font-mono mix-blend-difference">

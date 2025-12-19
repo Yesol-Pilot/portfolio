@@ -22,7 +22,12 @@ export const useStore = create((set) => ({
         return { systemLogs: updatedLogs };
     }),
 
+    // Interaction State
+    hoverState: false, // For general cursor state
     setHoverState: (hovering) => set({ hoverState: hovering }),
+
+    hoveredPlanet: null, // For Dock interaction (Visual Highlight)
+    setHoveredPlanet: (planetId) => set({ hoveredPlanet: planetId }),
 
     // Warp Transition Logic
     isWarping: false,
