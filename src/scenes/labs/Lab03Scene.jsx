@@ -118,7 +118,7 @@ const Particles = ({ analyser, mode }) => {
         <Points ref={pointsRef} positions={originalPositions} stride={3}>
             <PointMaterial
                 transparent
-                color="#06b6d4"
+                color="#facc15"
                 size={0.05}
                 sizeAttenuation={true}
                 depthWrite={false}

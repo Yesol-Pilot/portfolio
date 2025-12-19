@@ -1,42 +1,92 @@
-import { useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { useThree, useFrame } from '@react-three/fiber';
 import { useStore } from '../../hooks/useStore';
-import QuantumWarp from '../boot/QuantumWarp';
-import { useThree } from '@react-three/fiber';
 import gsap from 'gsap';
-import useSoundFX from '../../hooks/useSoundFX';
+import * as THREE from 'three';
+import QuantumWarp from '../boot/QuantumWarp';
+import { getPlanetWorldPosition } from '../../utils/planetRegistry';
 
 const WarpController = () => {
-    const isWarping = useStore(state => state.isWarping);
-    const finishWarp = useStore(state => state.finishWarp);
-    const { camera } = useThree();
-    const { playWarp } = useSoundFX();
+    const { camera, controls } = useThree();
+    const isWarping = useStore((state) => state.isWarping);
+    const warpTargetPosition = useStore((state) => state.warpTargetPosition);
+    const warpTarget = useStore((state) => state.warpTarget);
+    const finishWarp = useStore((state) => state.finishWarp);
+    const setWarping = useStore((state) => state.setWarping); // Assuming this might be needed, but mostly startWarp handles it. Checking store, it uses startWarp.
+    // Store only has startWarp/finishWarp. 
+
+    // We need playWarp sound
+    // import useSoundFX but can't use hook inside loop, need to use it in event or effect.
+    // Actually we handle sound in the effect.
+
+    // Re-implementing sound here or relying on previously imported context? 
+    // The previous code used useSoundFX inside the component.
+
+    // Let's import useSoundFX
+    // Wait, useSoundFX is a hook.
+
+    const [showVisuals, setShowVisuals] = useState(false);
+
+    // Target position ref to avoid closure staleness in useFrame
+    const targetRef = useRef(new THREE.Vector3());
 
     useEffect(() => {
-        if (isWarping) {
-            playWarp(); // Trigger Warp Sound
-            // Camera Zoom & Shake Effect before transition
-            gsap.to(camera.position, {
-                z: 0, // Zoom into the center (Black Hole)
-                duration: 2.0,
-                ease: "power3.in",
+        if (isWarping && warpTargetPosition) {
+            // Disable controls
+            if (controls) controls.enabled = false;
+
+            const targetPos = new THREE.Vector3(...warpTargetPosition);
+
+            // Animation
+            const tl = gsap.timeline({
                 onComplete: () => {
                     finishWarp();
+                    if (controls) controls.enabled = true;
                 }
             });
 
-            // Optional: Add camera shake here using GSAP or other methods if needed
-        }
-    }, [isWarping, camera, finishWarp]);
+            // Camera movement
+            tl.to(camera.position, {
+                x: targetPos.x * 0.8, // Stop slightly before the planet
+                y: targetPos.y * 0.8, // Adjust to be slightly above or aligned
+                z: targetPos.z * 0.8,
+                duration: 2.5,
+                ease: "power2.in",
+                onUpdate: () => {
+                    // Update ref is not strictly needed for gsap but for useFrame if we used it.
+                    // But here we can simply lookAt in the useFrame or update.
+                    // Let's rely on useFrame for continuous lookAt.
+                    targetRef.current.copy(targetPos);
+                }
+            });
 
-    // Only render the visual effect when warping
-    if (!isWarping) return null;
+            if (!showVisuals) setShowVisuals(true);
+
+            return () => {
+                tl.kill();
+            };
+        } else {
+            if (showVisuals) setShowVisuals(false);
+            if (controls && !isWarping) controls.enabled = true;
+        }
+    }, [isWarping, camera, finishWarp, warpTargetPosition, controls, showVisuals]);
+
+    // Force camera to look at target during warp
+    useFrame(() => {
+        if (isWarping) {
+            // Dynamically get planet position if possible, otherwise use static target
+            const dynamicPos = getPlanetWorldPosition(warpTarget);
+            if (dynamicPos) {
+                targetRef.current.copy(dynamicPos);
+            }
+            camera.lookAt(targetRef.current);
+        }
+    }, 100); // High priority
 
     return (
-        <group>
-            {/* Render overlay on top */}
-            <QuantumWarp />
-            <ambientLight intensity={5} />
-        </group>
+        <>
+            {showVisuals && <QuantumWarp />}
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { LORE } from '../../data/lore';
 import { useStore } from '../../hooks/useStore';
@@ -7,6 +7,7 @@ import CoreSun from './CoreSun';
 import PlanetFactory from './PlanetFactory';
 import * as THREE from 'three';
 import { Billboard, Html } from '@react-three/drei';
+import { registerPlanet, unregisterPlanet } from '../../utils/planetRegistry';
 
 // Individual Orbit Logic for each planet
 const PlanetaryOrbit = ({ lab, config }) => {
@@ -14,9 +15,16 @@ const PlanetaryOrbit = ({ lab, config }) => {
     const planetRef = useRef();
     const startWarp = useStore(state => state.startWarp);
     const { playClick, playHover } = useSoundFX();
+    const [hovered, setHovered] = useState(false);
 
     // Random start position
     const [startAngle] = useState(() => Math.random() * Math.PI * 2);
+
+    // Register planet ref for real-time tracking during warp
+    useEffect(() => {
+        registerPlanet(config.target, planetRef);
+        return () => unregisterPlanet(config.target);
+    }, [config.target]);
 
     useFrame((state) => {
         const t = state.clock.getElapsedTime();
@@ -34,10 +42,15 @@ const PlanetaryOrbit = ({ lab, config }) => {
 
     return (
         <group ref={groupRef} rotation={config.inclination}>
-            {/* 1. Orbit Path Line */}
+            {/* 1. Orbit Path Line - Brighter on Hover */}
             <mesh rotation={[-Math.PI / 2, 0, 0]}>
                 <ringGeometry args={[config.xRadius, config.xRadius + 0.05, 64]} />
-                <meshBasicMaterial color={config.color} opacity={0.1} transparent side={THREE.DoubleSide} />
+                <meshBasicMaterial
+                    color={config.color}
+                    opacity={hovered ? 0.4 : 0.1}
+                    transparent
+                    side={THREE.DoubleSide}
+                />
             </mesh>
 
             {/* 2. The Planet */}
@@ -46,34 +59,59 @@ const PlanetaryOrbit = ({ lab, config }) => {
                 onClick={(e) => {
                     e.stopPropagation();
                     playClick();
-                    startWarp(config.target); // Changed to startWarp
+                    const targetPos = new THREE.Vector3();
+                    planetRef.current.getWorldPosition(targetPos);
+
+                    const safePos = { x: targetPos.x, y: targetPos.y, z: targetPos.z };
+                    startWarp(config.target, safePos);
                 }}
                 onPointerEnter={(e) => {
                     e.stopPropagation();
+                    setHovered(true);
                     playHover();
                     document.body.style.cursor = 'pointer';
-                    // Optional: Set HUD data here
                 }}
                 onPointerLeave={() => {
+                    setHovered(false);
                     document.body.style.cursor = 'auto';
                 }}
             >
-                <PlanetFactory type={lab.visual.type} color={lab.visual.color} />
+                {/* Planet Mesh */}
+                <PlanetFactory type={lab.type} color={lab.visual.color} />
+
+                {/* Hover Effect: Targeting Ring */}
+                {hovered && (
+                    <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                        <ringGeometry args={[1.2, 1.3, 32]} />
+                        <meshBasicMaterial color={config.color} transparent opacity={0.8} side={THREE.DoubleSide} />
+                    </mesh>
+                )}
 
                 {/* 3. Label (Always facing camera) */}
-                <Billboard position={[0, -1.5, 0]}>
-                    <TextLabel text={lab.name} color={config.color} />
+                <Billboard position={[0, -1.8, 0]}>
+                    <TextLabel text={lab.name} color={config.color} hovered={hovered} />
                 </Billboard>
             </group>
         </group>
     );
 };
 
-const TextLabel = ({ text, color }) => (
+const TextLabel = ({ text, color, hovered }) => (
     <Html transform center distanceFactor={10} style={{ pointerEvents: 'none' }}>
-        <div className="px-2 py-1 text-xs font-bold font-mono tracking-widest border border-white/20 bg-black/50 backdrop-blur-sm rounded whitespace-nowrap"
-            style={{ color: color, textShadow: `0 0 10px ${color}` }}>
-            {text}
+        <div className={`transition-all duration-300 flex flex-col items-center ${hovered ? 'scale-110' : 'scale-100 opacity-80'}`}>
+            <div className="px-2 py-1 text-xs font-bold font-mono tracking-widest border border-white/20 bg-black/60 backdrop-blur-sm rounded whitespace-nowrap"
+                style={{
+                    color: color,
+                    textShadow: `0 0 10px ${color}`,
+                    borderColor: hovered ? color : 'rgba(255,255,255,0.2)'
+                }}>
+                {text}
+            </div>
+            {hovered && (
+                <div className="mt-1 text-[8px] text-white/70 font-mono tracking-widest animate-pulse">
+                    [ CLICK TO WARP ]
+                </div>
+            )}
         </div>
     </Html>
 );

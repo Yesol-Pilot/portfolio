@@ -83,7 +83,8 @@ const QuantumWarp = ({ isFinished }) => {
         // Disable camera movement to fix clipping suspicion (or keep it very subtle)
         // state.camera.position.x = 0;
         // state.camera.position.y = 0;
-        state.camera.lookAt(0, 0, 0);
+        // REMOVED: This line was causing camera to snap to center during warp
+        // state.camera.lookAt(0, 0, 0);
 
         // Core Pulsing
         const pulse = 1 + Math.sin(t * 3) * 0.05;

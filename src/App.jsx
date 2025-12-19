@@ -38,6 +38,7 @@ function App() {
           </Helmet>
 
           <CustomCursor />
+          <SoundManager />
 
           {/* 3D Scene Layer */}
           <Suspense fallback={<div className="flex items-center justify-center h-screen text-white font-mono text-xl animate-pulse tracking-widest">{LORE.SYSTEM.LOADING}</div>}>

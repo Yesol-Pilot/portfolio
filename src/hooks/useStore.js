@@ -8,7 +8,8 @@ export const useStore = create((set) => ({
 
     // Performance & Settings
     performanceMode: 'high', // 'high', 'low'
-    audioMuted: true,
+    isMuted: false, // Renamed from audioMuted
+
     // Persistence Data
     systemLogs: [],
 
@@ -26,8 +27,9 @@ export const useStore = create((set) => ({
     // Warp Transition Logic
     isWarping: false,
     warpTarget: null,
+    warpTargetPosition: null, // [x, y, z] or Vector3
 
-    startWarp: (scene) => set({ isWarping: true, warpTarget: scene }),
+    startWarp: (scene, position = null) => set({ isWarping: true, warpTarget: scene, warpTargetPosition: position }),
 
     finishWarp: () => set((state) => {
         // Actual Scene Switch
@@ -36,7 +38,8 @@ export const useStore = create((set) => ({
             currentScene: state.warpTarget,
             isTransitioning: true,
             isWarping: false,
-            warpTarget: null
+            warpTarget: null,
+            warpTargetPosition: null
         };
     }),
 
@@ -53,7 +56,7 @@ export const useStore = create((set) => ({
 
     setPerformanceMode: (mode) => set({ performanceMode: mode }),
 
-    toggleAudio: () => set((state) => ({ audioMuted: !state.audioMuted })),
+    toggleMute: () => set((state) => ({ isMuted: !state.isMuted })), // Renamed from toggleAudio
 
     // Visual Settings
     orbitSpeed: 0.05,

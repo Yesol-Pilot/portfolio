@@ -7,5 +7,14 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'docs',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          three: ['three', '@react-three/fiber', '@react-three/drei'],
+          animation: ['framer-motion', 'gsap'],
+        },
+      },
+    },
   },
 })

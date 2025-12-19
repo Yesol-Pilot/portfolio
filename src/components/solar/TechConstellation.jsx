@@ -3,6 +3,8 @@ import { useFrame } from '@react-three/fiber';
 import { Line, Text, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
+import { useStore } from '../../hooks/useStore';
+
 const SkillStar = ({ position, label }) => {
     return (
         <group position={position}>
@@ -18,7 +20,6 @@ const SkillStar = ({ position, label }) => {
                 <Text
                     position={[0.2, 0.2, 0]}
                     fontSize={0.2}
-                    color="rgba(255,255,255,0.5)"
                     color="rgba(255,255,255,0.5)"
                     anchorX="left"
                     anchorY="bottom"
@@ -45,6 +46,7 @@ const Constellation = ({ points, color = "#06b6d4" }) => {
 
 const TechConstellation = () => {
     const groupRef = useRef();
+    const performanceMode = useStore((state) => state.performanceMode);
 
     useFrame((state) => {
         if (groupRef.current) {
@@ -52,6 +54,8 @@ const TechConstellation = () => {
             groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.01;
         }
     });
+
+    if (performanceMode === 'low') return null;
 
     const frontendSkills = [
         { label: "REACT", position: [-15, 5, -10] },

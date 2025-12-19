@@ -1,4 +1,5 @@
 import { useRef, useCallback } from 'react';
+import { useStore } from './useStore';
 
 const useSoundFX = () => {
     const audioContextRef = useRef(null);
@@ -15,6 +16,7 @@ const useSoundFX = () => {
     }, []);
 
     const playHover = useCallback(() => {
+        if (useStore.getState().isMuted) return;
         try {
             const ctx = getContext();
             const osc = ctx.createOscillator();
@@ -40,6 +42,7 @@ const useSoundFX = () => {
     }, [getContext]);
 
     const playClick = useCallback(() => {
+        if (useStore.getState().isMuted) return;
         try {
             const ctx = getContext();
             const osc = ctx.createOscillator();
@@ -65,6 +68,7 @@ const useSoundFX = () => {
     }, [getContext]);
 
     const playTransition = useCallback(() => {
+        if (useStore.getState().isMuted) return;
         try {
             const ctx = getContext();
             const osc = ctx.createOscillator();
@@ -97,6 +101,7 @@ const useSoundFX = () => {
     }, [getContext]);
 
     const playWarp = useCallback(() => {
+        if (useStore.getState().isMuted) return;
         try {
             const ctx = getContext();
             const osc = ctx.createOscillator();
