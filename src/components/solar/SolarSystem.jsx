@@ -46,6 +46,7 @@ const PlanetaryOrbit = ({ lab, config }) => {
     const groupRef = useRef();
     const planetRef = useRef();
     const startWarp = useStore(state => state.startWarp);
+    const openMissionModal = useStore(state => state.openMissionModal); // Phase 34
     const hoveredPlanet = useStore(state => state.hoveredPlanet); // Get global hover state
     const { playClick, playHover } = useSoundFX();
 
@@ -101,9 +102,13 @@ const PlanetaryOrbit = ({ lab, config }) => {
                     const targetPos = new THREE.Vector3();
                     planetRef.current.getWorldPosition(targetPos);
 
-                    // Pass as Array [x, y, z] to satisfy WarpController's "new Vector3(...pos)"
+                    // Phase 34: Open Mission Modal instead of direct warp
                     const safePos = [targetPos.x, targetPos.y, targetPos.z];
-                    startWarp(config.target, safePos);
+                    openMissionModal({
+                        lab: lab,
+                        config: config,
+                        warpPos: safePos
+                    });
                 }}
                 onPointerEnter={(e) => {
                     e.stopPropagation();

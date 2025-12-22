@@ -5,6 +5,7 @@ import Overlay from './components/layout/Overlay';
 import CustomCursor from './components/layout/CustomCursor';
 import SoundManager from './components/core/SoundManager';
 import ProfileDOM from './components/dom/ProfileDOM';
+import MissionModal from './components/ui/MissionModal';
 import { useStore } from './hooks/useStore';
 
 import GlobalErrorBoundary from './components/core/GlobalErrorBoundary';
@@ -50,6 +51,9 @@ function App() {
 
           {/* DOM Content Layer (For Profile Scroll Reliability) */}
           {currentScene === 'profile' && <ProfileDOM />}
+
+          {/* Phase 34: Mission Modal (Planetary Archives) */}
+          <MissionModal />
         </div>
       </GlobalErrorBoundary>
     </HelmetProvider>

@@ -29,6 +29,11 @@ export const useStore = create((set) => ({
     hoveredPlanet: null, // For Dock interaction (Visual Highlight)
     setHoveredPlanet: (planetId) => set({ hoveredPlanet: planetId }),
 
+    // Phase 34: Mission Modal State (Planetary Archives)
+    missionModalData: null, // { lab, config, warpPos } or null
+    openMissionModal: (data) => set({ missionModalData: data }),
+    closeMissionModal: () => set({ missionModalData: null }),
+
     // Warp Transition Logic
     isWarping: false,
     warpTarget: null,
