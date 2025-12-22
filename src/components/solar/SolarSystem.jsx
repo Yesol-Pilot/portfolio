@@ -9,6 +9,38 @@ import * as THREE from 'three';
 import { Billboard, Html } from '@react-three/drei';
 import { registerPlanet, unregisterPlanet } from '../../utils/planetRegistry';
 
+// TextLabel Component - Moved up to avoid hoisting issues
+const TextLabel = ({ text, color, hovered }) => (
+    <Html transform center distanceFactor={12} style={{ pointerEvents: 'none' }}>
+        <div className={`transition-all duration-300 flex flex-col items-center ${hovered ? 'scale-110' : 'scale-95 opacity-60'}`}>
+
+            {/* HUD Line - Fixed gradient syntax for dynamic color */}
+            <div className={`w-[1px] transition-all duration-300 ${hovered ? 'h-12 opacity-100' : 'h-4 opacity-30'}`}
+                style={{
+                    background: `linear-gradient(to top, transparent, ${color}, transparent)`
+                }} />
+
+            {/* Label Container */}
+            <div className="px-3 py-1 text-xs font-bold font-mono tracking-widest border border-white/10 bg-black/80 backdrop-blur-md rounded shadow-xl whitespace-nowrap"
+                style={{
+                    color: color,
+                    textShadow: `0 0 15px ${color}`,
+                    borderColor: hovered ? color : 'rgba(255,255,255,0.1)',
+                    boxShadow: hovered ? `0 0 20px ${color}40` : 'none'
+                }}>
+                {text}
+            </div>
+
+            {/* Click Hint */}
+            <div className={`mt-1 overflow-hidden transition-all duration-300 ${hovered ? 'h-auto opacity-100' : 'h-0 opacity-0'}`}>
+                <div className="text-[8px] text-white/70 font-mono tracking-widest animate-pulse">
+                    [ ACCESS SYSTEM ]
+                </div>
+            </div>
+        </div>
+    </Html>
+);
+
 // Individual Orbit Logic for each planet
 const PlanetaryOrbit = ({ lab, config }) => {
     const groupRef = useRef();
@@ -16,8 +48,12 @@ const PlanetaryOrbit = ({ lab, config }) => {
     const startWarp = useStore(state => state.startWarp);
     const hoveredPlanet = useStore(state => state.hoveredPlanet); // Get global hover state
     const { playClick, playHover } = useSoundFX();
+
+    // Local hover state - Rename to localHover to avoid ReferenceError
+    const [localHover, setLocalHover] = useState(false);
+
     // Combine local hover and global hover (from Dock)
-    const isActive = hovered || hoveredPlanet === config.target;
+    const isActive = localHover || hoveredPlanet === config.target;
 
     // Random start position
     const [startAngle] = useState(() => Math.random() * Math.PI * 2);
@@ -71,12 +107,12 @@ const PlanetaryOrbit = ({ lab, config }) => {
                 }}
                 onPointerEnter={(e) => {
                     e.stopPropagation();
-                    setHovered(true);
+                    setLocalHover(true);
                     playHover();
                     document.body.style.cursor = 'pointer';
                 }}
                 onPointerLeave={() => {
-                    setHovered(false);
+                    setLocalHover(false);
                     document.body.style.cursor = 'auto';
                 }}
             >
@@ -105,26 +141,6 @@ const PlanetaryOrbit = ({ lab, config }) => {
         </group>
     );
 };
-
-const TextLabel = ({ text, color, hovered }) => (
-    <Html transform center distanceFactor={10} style={{ pointerEvents: 'none' }}>
-        <div className={`transition-all duration-300 flex flex-col items-center ${hovered ? 'scale-110' : 'scale-100 opacity-80'}`}>
-            <div className="px-2 py-1 text-xs font-bold font-mono tracking-widest border border-white/20 bg-black/60 backdrop-blur-sm rounded whitespace-nowrap"
-                style={{
-                    color: color,
-                    textShadow: `0 0 10px ${color}`,
-                    borderColor: hovered ? color : 'rgba(255,255,255,0.2)'
-                }}>
-                {text}
-            </div>
-            {hovered && (
-                <div className="mt-1 text-[8px] text-white/70 font-mono tracking-widest animate-pulse">
-                    [ CLICK TO WARP ]
-                </div>
-            )}
-        </div>
-    </Html>
-);
 
 
 const SolarSystem = () => {

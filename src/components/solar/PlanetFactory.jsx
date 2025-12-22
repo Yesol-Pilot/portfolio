@@ -182,29 +182,29 @@ const GasGiant = ({ color }) => {
 
             {/* Grand Rings System */}
             <group ref={ringRef} rotation={[Math.PI / 2.5, 0.2, 0]}>
-                {/* Main Ring */}
+                {/* Main Ring - Adjusted Size (Reduced) */}
                 <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                    <ringGeometry args={[1.8, 3.2, 128]} />
+                    <ringGeometry args={[1.4, 2.2, 128]} />
                     <meshStandardMaterial
                         color="#fbbf24"
                         emissive="#fbbf24"
-                        emissiveIntensity={0.15}
+                        emissiveIntensity={0.2}
                         transparent
-                        opacity={0.5}
+                        opacity={0.6}
                         side={THREE.DoubleSide}
                         metalness={0.9}
-                        roughness={0.3}
+                        roughness={0.2}
                     />
                 </mesh>
                 {/* Gap Ring */}
                 <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                    <ringGeometry args={[2.4, 2.5, 128]} />
-                    <meshBasicMaterial color="#1a1a1a" transparent opacity={0.5} side={THREE.DoubleSide} />
+                    <ringGeometry args={[1.5, 1.6, 128]} />
+                    <meshBasicMaterial color="#000000" transparent opacity={0.3} side={THREE.DoubleSide} />
                 </mesh>
-                {/* Outer Dust Ring */}
+                {/* Outer Dust Ring - Tighter */}
                 <mesh rotation={[-Math.PI / 2, 0, 0]}>
-                    <ringGeometry args={[3.4, 4, 128]} />
-                    <meshBasicMaterial color="#fef3c7" transparent opacity={0.2} side={THREE.DoubleSide} />
+                    <ringGeometry args={[2.3, 2.6, 128]} />
+                    <meshBasicMaterial color="#fef3c7" transparent opacity={0.15} side={THREE.DoubleSide} />
                 </mesh>
             </group>
 

@@ -2,9 +2,10 @@
 export const autoHistory = [
     {
     "version": "Recent Dev Stream",
-    "date": "2025-12-19",
+    "date": "2025-12-22",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "🛠️ 업데이트: 기능(hub): 구현 Quick Nav Dock and overhaul visuals (Phase 25)",
         "🛠️ 업데이트: 기능(mobile): Enhance touch targets for Planets, Nav, and Boot",
         "🛠️ 업데이트: 수정(hub): Restore dynamic camera focus during warp and cleanup syntax",
         "🛠️ 업데이트: 수정(hub): 해결 warp 로직 race condition and syntax checks",
@@ -13,8 +14,7 @@ export const autoHistory = [
         "✨ 기능 구현: Hub UI Enhancements (Identity Label, Planet Interactions)",
         "🔧 수정: 제거 시스템UI, 수정 오디오 filename, 다듬기 기획 철학",
         "🔧 수정: 오디오 자동재생 (클릭 to Start), 업데이트 History Data, Expand 기획 철학",
-        "♻️ 구조 개선: 수정 오디오 음소거, 2D Boot로그s, Navbar 이름, and 추가 기획 철학",
-        "⚙️ 시스템: Push latest build 산출물 for 배포ment (DPR/Mobile 수정)"
+        "♻️ 구조 개선: 수정 오디오 음소거, 2D Boot로그s, Navbar 이름, and 추가 기획 철학"
     ]
 }
 ];

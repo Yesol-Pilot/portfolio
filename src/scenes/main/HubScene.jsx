@@ -1,8 +1,9 @@
 import { Environment, Stars, Sparkles, Cloud, MeshReflectorMaterial } from '@react-three/drei';
 import SolarSystem from '../../components/solar/SolarSystem';
 import TechConstellation from '../../components/solar/TechConstellation';
-
 import { useStore } from '../../hooks/useStore';
+import CinematicEffects from '../../components/effects/CinematicEffects';
+import StarField from '../../components/solar/StarField';
 
 const HubScene = () => {
     const performanceMode = useStore((state) => state.performanceMode);
@@ -10,6 +11,12 @@ const HubScene = () => {
 
     return (
         <group position={[0, -1, 0]}>
+            {/* Post-Processing Effects (Bloom, Vignette) - High Mode Only */}
+            {isHighPerf && <CinematicEffects />}
+
+            {/* Interactive Space Dust */}
+            <StarField count={800} />
+
             <Environment preset="city" />
 
             {/* Deep Space Background - Ultra High Density */}
@@ -55,31 +62,11 @@ const HubScene = () => {
             {/* Background Skills */}
             <TechConstellation />
 
-            {/* Premium Reflective Floor - Simplified in Low Mode */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -10, 0]}>
-                <planeGeometry args={[100, 100]} />
-                {isHighPerf ? (
-                    <MeshReflectorMaterial
-                        blur={[300, 100]}
-                        resolution={1024}
-                        mixBlur={1}
-                        mixStrength={70}
-                        roughness={0.4}
-                        depthScale={1.2}
-                        minDepthThreshold={0.4}
-                        maxDepthThreshold={1.4}
-                        color="#050505"
-                        metalness={0.9}
-                        mirror={0.6}
-                    />
-                ) : (
-                    <meshStandardMaterial
-                        color="#050505"
-                        roughness={0.8}
-                        metalness={0.2}
-                    />
-                )}
-            </mesh>
+            {/* Premium Reflective Floor - REMOVED for Deep Space Feel (Phase 27) */}
+            {/* 
+               We remove the floor to avoid the "cut off" look and enhance infinite space.
+               The stars and nebula provide enough depth.
+            */}
 
             {/* Cinematic Lighting System */}
             {/* 1. Main Key Light (Cool) */}

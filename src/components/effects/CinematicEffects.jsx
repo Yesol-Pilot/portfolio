@@ -37,12 +37,12 @@ const CinematicEffects = () => {
     return (
         <BloomErrorBoundary>
             <EffectComposer disableNormalPass>
-                {/* 1. Toned Down Bloom for Balanced Visuals */}
+                {/* 1. Toned Down Bloom for Balanced Visuals - Adjusted Phase 27 */}
                 <Bloom
-                    luminanceThreshold={0.5} // Higher threshold: only very bright things glow
+                    luminanceThreshold={0.8} // Much higher threshold: only bright neon glows
                     mipmapBlur
-                    intensity={0.4} // Reduced intensity
-                    radius={0.6} // Reduced spread
+                    intensity={0.2} // Further reduced intensity for comfort
+                    radius={0.4} // Tighter glow
                     levels={8}
                 />
 
