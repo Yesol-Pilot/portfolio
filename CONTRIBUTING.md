@@ -2,11 +2,14 @@
 
 First off, thanks for taking the time to contribute! 🎉
 
-The "Cinematic Multiverse" is an experimental WebGL portfolio and game platform. We welcome pull requests, bug reports, and suggestions.
+The "Cinematic Multiverse" is the personal portfolio of **Yesol Heo**.
+
+> **Note**: As this is a personal portfolio representing the author's individual work and identity, **direct code modifications by third parties are generally not accepted** unless they are critical bug fixes.
+> However, you are welcome to **Fork** this repository to study the architecture or build your own version!
 
 ## 🛠 Development Process
 
-1. **Fork** the repository.
+1. **Fork** the repository (Safe Sandbox Mode).
 2. **Clone** your fork locally.
 3. **Create a Branch** for your changes:
 
