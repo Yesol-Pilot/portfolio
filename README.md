@@ -1,95 +1,103 @@
-# 🌌 Cinematic Multiverse Lab
->
+# 🌌 Cinematic Multiverse (The Portfolio)
+
+[![Deploy Status](https://img.shields.io/github/actions/workflow/status/ysh1537/portfolio/deploy.yml?label=Deploy&logo=github)](https://heoyesol.kr)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
+[![Three.js](https://img.shields.io/badge/Three.js-R3F-black?logo=three.js)](https://threejs.org/)
+
 > **"Code is the DNA of a new reality."**
 
-**Cinematic Multiverse Lab**은 단순한 포트폴리오 웹사이트가 아닌, 개발자 **허예솔(Yesol Heo)**의 기술적 상상력이 시각화된 **디지털 실험실**입니다. React와 Three.js를 활용하여, 웹 브라우저 상에서 몰입감 있는 3D 메타버스 경험을 제공합니다.
+The **Cinematic Multiverse** is an immersive WebGL portfolio and experimental playground. It reimagines the traditional developer portfolio as a navigable 3D galaxy, where every project is a planet and every skill is a research sector.
 
-🔗 **Live Portal**: [https://heoyesol.kr](https://heoyesol.kr)
-
----
-
-## 🧭 The Sectors (주요 기능)
-
-이 프로젝트는 **'차원 실험실(Dimension Lab)'**이라는 컨셉 아래 4개의 구역으로 나뉩니다.
-
-- **🛸 Sector 01: The Gateway (Main)**
-  - 방문자를 맞이하는 3D 허브 공간.
-  - 전체 내비게이션 및 포털 역할.
-- **🧬 Sector 02: Bio-Data Lab (Creatures)**
-  - 생성형 AI와 알고리즘으로 탄생한 '크리처'들을 관리하고 수집하는 공간.
-  - 가차(Gacha) 시스템 및 도감 기능 포함.
-- **📚 Sector 03: The Archive (Portfolio)**
-  - 개발자의 이력, 프로젝트, 기술 스택을 홀로그램 인터페이스로 열람.
-- **🚧 Sector 04: The Flux (Debug)**
-  - 와이어프레임 쉐이더와 물리 엔진 실험이 이루어지는 개발자 전용 공간.
+🔗 **Live Portal Access**: [https://heoyesol.kr](https://heoyesol.kr)
 
 ---
 
-## 🛠 Tech Stack (기술 스택)
+## 🧭 The Sectors (Features)
 
-### Core
+This repository houses the source code for the entire multiverse experience.
 
-- **React 18**
-- **Vite**
-- **JavaScript (ES6+)**
-
-### 3D & Graphics
-
-- **Three.js**
-- **@react-three/fiber (R3F)**
-- **@react-three/drei**
-- **@react-three/postprocessing** (Bloom, Vignette, Glitch)
-- **GSAP** (Cinematic Animations)
-
-### Styling & UI
-
-- **TailwindCSS**
-- **Sass (SCSS)**
-- **Framer Motion**
-
-### State Management
-
-- **Zustand**
+| Sector | Description | Status |
+| :--- | :--- | :---: |
+| **🛸 Gateway (Hub)** | Interactive 3D Solar System navigation. | ✅ |
+| **🧬 Bio-Lab (Game)** | Generative creature collection & DNA research game. | ✅ |
+| **📚 The Archive** | Holographic profile and skill visualization. | ✅ |
+| **⚡ The Flux** | Physics simulation and shader experiments. | 🚧 |
 
 ---
 
-## 🚀 Getting Started (로컬 실행)
+## 🛠 Technology Stack
 
-이 차원에 접속하려면 다음 절차를 따르십시오.
+The architecture is built on a high-performance modern web stack.
 
-\`\`\`bash
+### Core Engine
 
-# 1. Repository Clone
+* ![React](https://img.shields.io/badge/-React_18-61DAFB?style=flat-square&logo=react&logoColor=black) **React 18** - Component Architecture
+* ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white) **Vite** - High-speed Build Tool
+* ![Three.js](https://img.shields.io/badge/-Three.js-000000?style=flat-square&logo=three.js&logoColor=white) **R3F (@react-three/fiber)** - 3D Rendering
 
-git clone <https://github.com/ysh1537/portfolio.git>
+### Visuals & Physics
 
-# 2. Install Dependencies
+* **gsap** - Cinematic Animations
+* **@react-three/postprocessing** - Bloom, Vignette, Glitch Effects
+* **TailwindCSS** - UI Styling
+* **Framer Motion** - Interface Transitions
 
-npm install
+### State & Logic
 
-# 3. Initialize Server
+* **Zustand** - Global Store Manager
+* **Custom Hooks** - Audio, Interaction, Physics
 
-npm run dev
+---
 
-## 🚀 Deployment (Automated)
+## 🚀 Quick Start
 
-이 프로젝트는 **GitHub Actions**를 통해 자동 배포됩니다.
-`main` 브랜치에 코드가 푸시되면(push), 자동으로 빌드되어 `docs/` 폴더가 업데이트되고 라이브 서버(`heoyesol.kr`)에 반영됩니다.
+Initialize your own dimension locally.
 
-### 수동 배포가 필요한 경우 (비권장)
+### Prerequisites
+
+* Node.js 18+
+* npm
+
+### Installation
 
 ```bash
-npm run build
-git add docs
-git commit -m "Manual deploy"
-git push
-```\`\`
+# 1. Clone the repository
+git clone https://github.com/ysh1537/portfolio.git
+
+# 2. Enter the directory
+cd portfolio
+
+# 3. Install dependencies
+npm install
+
+# 4. Start the development server
+npm run dev
+```
+
+Visit `http://localhost:4321` to enter the multiverse.
+
+---
+
+## 🤝 Contributing
+
+We welcome fellow architects! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+1. Fork it (`https://github.com/ysh1537/portfolio/fork`)
+2. Create your feature branch (`git checkout -b feat/NewFeature`)
+3. Commit your changes (`git commit -m 'feat: Add some NewFeature'`)
+4. Push to the branch (`git push origin feat/NewFeature`)
+5. Create a new Pull Request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
-Created by **Yesol Heo** (Dimension Architect).
+
+<p align="center">
+  Created by <strong>Yesol Heo</strong> (Dimension Architect)<br>
+  Based in South Korea 🇰🇷
+</p>
