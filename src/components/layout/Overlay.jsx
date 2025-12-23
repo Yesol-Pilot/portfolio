@@ -21,18 +21,37 @@ const WelcomeOverlay = ({ onDismiss }) => (
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.9, y: -20 }}
             transition={{ delay: 0.2, type: 'spring', damping: 20 }}
-            className="text-center max-w-md px-8 py-10 border border-white/10 bg-black/80 rounded-2xl shadow-2xl"
+            className="text-center max-w-lg px-8 py-10 border border-white/10 bg-black/80 rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
         >
             <div className="text-4xl mb-4">🌌</div>
             <h2 className="text-xl md:text-2xl font-bold text-white mb-2 font-orbitron tracking-wide">
                 WELCOME TO THE METAVERSE
             </h2>
-            <p className="text-white/60 text-sm md:text-base mb-6 leading-relaxed">
+            <p className="text-white/60 text-sm md:text-base mb-4 leading-relaxed">
                 각 <span className="text-cyan-400 font-bold">행성</span>을 클릭하여 프로젝트를 탐험하세요.
                 <br />
                 중앙의 <span className="text-yellow-400 font-bold">태양</span>은 저의 프로필입니다.
             </p>
+
+            {/* Settings Guide */}
+            <div className="mb-6 p-3 bg-white/5 rounded-lg border border-white/10">
+                <p className="text-white/50 text-xs mb-2 font-bold tracking-wider">⚙️ 설정 안내</p>
+                <div className="flex justify-center gap-4 text-[11px] text-white/60">
+                    <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full border border-green-500/30">AUDIO</span>
+                        <span>배경음악 ON/OFF</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-400 rounded-full border border-cyan-500/30">PERF</span>
+                        <span>성능 모드 전환</span>
+                    </div>
+                </div>
+                <p className="text-white/40 text-[10px] mt-2">
+                    * 화면 우측 상단에서 조절할 수 있습니다
+                </p>
+            </div>
+
             <button
                 onClick={onDismiss}
                 className="px-6 py-2 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-full text-sm font-bold tracking-wider hover:bg-cyan-500/30 transition-all"
