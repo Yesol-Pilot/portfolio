@@ -5,6 +5,7 @@ export const autoHistory = [
     "date": "2025-12-23",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "🔧 수정: Sanity CMS 비활성화 (CORS 에러 해결)",
         "🛠️ 업데이트: 배포: 인터랙션 폴리싱 + Career 줄바꿈 수정",
         "✨ 기능 구현: 인터랙션 폴리싱 (호버 스케일, 셀렉션 링, 히트박스 정밀화)",
         "🛠️ 업데이트: 📜 History 업데이트: v1.6.0~v2.0.0 (12/19~12/23) 데일리 이력 추가",
@@ -13,8 +14,7 @@ export const autoHistory = [
         "🛠️ 업데이트: 업데이트: Expanded Black Box 로그s with strategic depth and Director persona",
         "⚙️ 시스템: 업데이트 README and Docs for Phase 36 release",
         "🛠️ 업데이트: 35 & 36 Complete: Black Box Archives & Lab 01 Crystalline Redesign",
-        "✨ 기능 구현: Phase 34 - Planetary Archives Modal",
-        "🎨 스타일: Optimize mobile UI (enlarge toggles, hide status overlap)"
+        "✨ 기능 구현: Phase 34 - Planetary Archives Modal"
     ]
 }
 ];

@@ -1,15 +1,17 @@
 /**
  * Lab04Scene.jsx
- * "The Glitch" - Debugging Experience
+ * "The Glitch" - Debugging Experience + Guestbook
  * 
  * Concept: 사용자가 불안정한 모듈을 클릭하여 "패치"하면
  * Reality Integrity가 상승하고, 최종적으로 섹터가 안정화된다.
+ * 안정화 완료 후 방명록(Giscus)이 해금된다.
  * "Debugging is Creating" - 혼돈에서 질서를 찾아가는 과정의 시각화.
  */
 import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, Html, Float, Billboard, Sparkles } from '@react-three/drei';
 import useSoundFX from '../../hooks/useSoundFX';
+import Giscus from '@giscus/react';
 import * as THREE from 'three';
 
 // --- Matrix Rain Shader Material ---
@@ -286,6 +288,37 @@ const Lab04Scene = () => {
                         )}
                     </div>
                 </Html>
+
+                {/* Guestbook - 디버깅 완료 후 해금 */}
+                {isStabilized && (
+                    <Html position={[0, -2.5, 0]} transform scale={0.4} style={{
+                        width: '600px',
+                        maxHeight: '400px',
+                        overflow: 'auto',
+                        background: 'rgba(0, 0, 0, 0.9)',
+                        borderRadius: '12px',
+                        border: '1px solid rgba(6, 182, 212, 0.3)',
+                        padding: '16px'
+                    }}>
+                        <div className="text-center mb-4">
+                            <h3 className="text-cyan-400 font-bold text-lg mb-2">📝 GUESTBOOK UNLOCKED</h3>
+                            <p className="text-gray-400 text-sm">섹터 안정화에 성공하셨군요! 방명록을 남겨주세요.</p>
+                        </div>
+                        <Giscus
+                            repo="ysh1537/portfolio"
+                            repoId="R_kgDOM6zw0A"
+                            category="Guestbook"
+                            categoryId="DIC_kwDOM6zw0M4ClTkL"
+                            mapping="pathname"
+                            strict="0"
+                            reactionsEnabled="1"
+                            emitMetadata="0"
+                            inputPosition="top"
+                            theme="dark_dimmed"
+                            lang="ko"
+                        />
+                    </Html>
+                )}
             </group>
 
 
