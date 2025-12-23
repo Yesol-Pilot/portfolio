@@ -5,6 +5,7 @@ export const autoHistory = [
     "date": "2025-12-23",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "🛠️ 업데이트: 📝 Phase 38: Dev로그 추가 (Hyperspace + LOW 최적화), Welcome Overlay 설정 안내 추가",
         "🛠️ 업데이트: ✨ Phase 38: Hub UX 개선, LOW 모드 최적화, Hyperspace 연출 통합, Lab04 디버깅 경험",
         "🛠️ 업데이트: 업데이트: Expanded Black Box 로그s with strategic depth and Director persona",
         "⚙️ 시스템: 업데이트 README and Docs for Phase 36 release",
@@ -13,8 +14,7 @@ export const autoHistory = [
         "🎨 스타일: Optimize mobile UI (enlarge toggles, hide status overlap)",
         "📝 문서: Translate README to Korean per user request",
         "📝 문서: 업데이트 guidelines to reflect personal portfolio nature",
-        "📝 문서: Professionalize repo with README overhaul, CI, and governance 파일",
-        "🛠️ 업데이트: 추가 GitHub Action for automated 배포ment"
+        "📝 문서: Professionalize repo with README overhaul, CI, and governance 파일"
     ]
 }
 ];
