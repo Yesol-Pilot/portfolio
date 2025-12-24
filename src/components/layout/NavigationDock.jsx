@@ -13,9 +13,9 @@ const NavigationDock = () => {
     // Define items based on Lore
     const dockItems = [
         { id: 'profile', label: '프로필', icon: '✦', color: LORE.SECTORS.PROFILE.visual.color, target: 'profile' },
-        { id: 'lab01', label: '프로젝트', icon: '◈', color: LORE.SECTORS.LAB_01.visual.color, target: 'lab01' },
-        { id: 'lab02', label: '기술연구', icon: '☘', color: LORE.SECTORS.LAB_02.visual.color, target: 'lab02' },
-        { id: 'lab03', label: '커리어', icon: '♬', color: LORE.SECTORS.LAB_03.visual.color, target: 'lab03' },
+        { id: 'lab01', label: '셰이더', icon: '◈', color: LORE.SECTORS.LAB_01.visual.color, target: 'lab01' },
+        { id: 'lab02', label: '테크', icon: '☘', color: LORE.SECTORS.LAB_02.visual.color, target: 'lab02' },
+        { id: 'lab03', label: '오디오', icon: '♬', color: LORE.SECTORS.LAB_03.visual.color, target: 'lab03' },
         { id: 'lab04', label: '방명록', icon: '⚡', color: LORE.SECTORS.LAB_04.visual.color, target: 'lab04' },
         { id: 'blackbox', label: '개발일지', icon: '◼', color: '#06b6d4', target: 'blackbox', isModal: true },
     ];

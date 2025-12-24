@@ -1,6 +1,7 @@
 ﻿import Hero from '../sections/Hero';
 import About from '../sections/About';
 import Expertise from '../sections/Expertise';
+import Projects from '../sections/Projects';
 import Career from '../sections/Career';
 import Achievements from '../sections/Achievements';
 import AdBanner from '../layout/AdBanner';
@@ -26,6 +27,7 @@ const ProfileDOM = () => {
                     <section id="hero"><Hero /></section>
                     <section id="about"><About /></section>
                     <section id="work"><Career /></section>
+                    <section id="projects"><Projects /></section>
                     <section id="expertise"><Expertise /></section>
                     <section id="achievements"><Achievements /></section>
 

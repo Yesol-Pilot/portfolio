@@ -46,15 +46,15 @@ const ProfileScene = () => {
                     <div className="space-y-2 text-xs text-gray-300 font-sans">
                         <div className="flex justify-between border-b border-white/10 pb-1">
                             <span>전문분야 (CLASS)</span>
-                            <span className="text-white">마법사 (Wizard)</span>
+                            <span className="text-white">PM / 서비스 기획</span>
                         </div>
                         <div className="flex justify-between border-b border-white/10 pb-1">
                             <span>경력 (LEVEL)</span>
-                            <span className="text-white">4년차 (Lv. 25)</span>
+                            <span className="text-white">5년차 (Lv. 30)</span>
                         </div>
                         <div className="flex justify-between border-b border-white/10 pb-1">
-                            <span>현황 (GUILD)</span>
-                            <span className="text-white">새로운 도전을 구하는 중</span>
+                            <span>소속 (GUILD)</span>
+                            <span className="text-white">㈜이트라이브 CTS팀</span>
                         </div>
                     </div>
                 </div>
@@ -62,22 +62,31 @@ const ProfileScene = () => {
 
             {/* Right Panel: Stats & Skills */}
             <Html position={[3.5, 0.5, 0]} transform distanceFactor={4} style={{ pointerEvents: 'auto' }}>
-                <div className="w-72 bg-black/80 border-r-4 border-pink-500 p-6 rounded-l-lg backdrop-blur-md shadow-[0_0_30px_rgba(236,72,153,0.3)] text-right">
+                <div className="w-80 bg-black/80 border-r-4 border-pink-500 p-6 rounded-l-lg backdrop-blur-md shadow-[0_0_30px_rgba(236,72,153,0.3)] text-right">
                     <h2 className="text-xl font-bold text-white mb-4 border-b border-pink-500/50 pb-2 inline-block font-sans">핵심 역량 (STATS)</h2>
 
                     <div className="space-y-3 font-mono text-xs">
                         <div>
                             <div className="flex justify-between text-pink-300 mb-1">
-                                <span>REACT.JS</span>
-                                <span>92%</span>
+                                <span>PROJECT MGMT</span>
+                                <span>95%</span>
                             </div>
                             <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
-                                <div className="bg-pink-500 h-full w-[92%] shadow-[0_0_10px_pink]" />
+                                <div className="bg-pink-500 h-full w-[95%] shadow-[0_0_10px_pink]" />
                             </div>
                         </div>
                         <div>
                             <div className="flex justify-between text-pink-300 mb-1">
-                                <span>THREE.JS (3D)</span>
+                                <span>METAVERSE / XR</span>
+                                <span>90%</span>
+                            </div>
+                            <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
+                                <div className="bg-pink-500 h-full w-[90%] shadow-[0_0_10px_pink]" />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex justify-between text-pink-300 mb-1">
+                                <span>DATA ANALYSIS</span>
                                 <span>85%</span>
                             </div>
                             <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
@@ -86,11 +95,11 @@ const ProfileScene = () => {
                         </div>
                         <div>
                             <div className="flex justify-between text-pink-300 mb-1">
-                                <span>UI/UX DESIGN</span>
-                                <span>88%</span>
+                                <span>COMMUNICATION</span>
+                                <span>98%</span>
                             </div>
                             <div className="w-full bg-gray-800 h-1 rounded overflow-hidden">
-                                <div className="bg-pink-500 h-full w-[88%] shadow-[0_0_10px_pink]" />
+                                <div className="bg-pink-500 h-full w-[98%] shadow-[0_0_10px_pink]" />
                             </div>
                         </div>
                     </div>

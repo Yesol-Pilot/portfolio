@@ -92,32 +92,32 @@ export const LORE = {
                     "마이크 입력 반응 모드"
                 ],
                 techStack: ["Web Audio API", "AudioAnalyser", "GLSL Particles", "FFT Analysis", "Three.js"],
-                media: []
+                media: ["/assets/screenshots/lab03_resonance.png"]
             }
         },
         LAB_04: {
             id: 'LAB-04',
-            name: '불안정한 현실 (The Glitch)',
+            name: '조각난 위성 (The Glitch)',
             tech: 'DEBUG',
-            type: '조각난 위성 (Fractured Moon)',
-            description: "디버깅과 패치 작업이 필요한 불안정한 섹터입니다.",
-            mission: "시스템 디버깅 및 테스트 체험",
+            type: '소행성 (Asteroid)',
+            description: "시스템 오류와 글리치로 뒤덮인 불안정한 공간입니다.",
+            mission: "버그 수정 및 시스템 안정화",
             status: "UNSTABLE",
             visual: {
-                color: '#ef4444', // Red
-                texture: 'wireframe',
-                effect: 'glitch'
+                color: '#ff4d4d', // Red
+                texture: 'glitch',
+                effect: 'noise'
             },
             details: {
-                longDescription: "이 섹터는 의도적으로 '불안정'한 상태로 설계되었습니다. 방문자는 '디버거'가 되어 불안정한 모듈들을 수리해야 합니다. 모든 모듈 패치 완료 시 숨겨진 방명록이 해금됩니다. 코드를 통한 문제 해결의 메타포입니다.",
+                longDescription: "이 섹터는 의도적인 시스템 오류와 글리치로 가득 찬 공간입니다. 사용자는 불안정한 모듈을 찾아 '패치'하여 Reality Integrity(현실 무결성)를 회복시켜야 합니다. 모든 버그가 수정되면 숨겨진 방명록이 활성화됩니다.",
                 features: [
-                    "인터랙티브 디버깅 체험",
-                    "모듈 패치 미니게임",
-                    "방명록 해금 시스템",
-                    "익명 메시지 작성 가능"
+                    "매트릭스 코드 레인 효과",
+                    "글리치 텍스트 및 화면 왜곡",
+                    "인터랙티브 디버깅 미니게임",
+                    "익명 방명록 시스템 (Firebase)"
                 ],
-                techStack: ["Firebase Firestore", "Real-time Database", "Matrix Rain Shader", "Gamification"],
-                media: []
+                techStack: ["Glitch Shaders", "Post-processing", "Error Boundary", "Firebase Firestore", "Interactive Modules"],
+                media: ["/assets/screenshots/lab04_glitch.png"]
             }
         },
         PROFILE: {
