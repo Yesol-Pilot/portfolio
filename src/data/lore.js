@@ -34,7 +34,7 @@ export const LORE = {
                 effect: 'transmission'
             },
             details: {
-                longDescription: "이 섹터는 실시간 셰이더 기술과 빛의 굴절을 사용한 프로젝트들을 전시합니다. 수정 구체를 통해 빛이 어떻게 물체와 상호작용하는지 탐험할 수 있습니다. Transmission 머티리얼과 PBR 셰이더를 활용한 시각적 실험의 집합체입니다.",
+                longDescription: "프리즘(Prism)이 백색광을 다양한 스펙트럼으로 분광하듯, 설계자의 다채로운 프로젝트 경험을 분류하여 보관하는 데이터 수장고입니다. 투명한 수정체 너머로 각 프로젝트의 핵심 데이터와 성과를 열람할 수 있습니다.",
                 features: [
                     "실시간 굴절 및 반사 셰이더 체험",
                     "인터랙티브 파라미터 조절 (Distort, Color, Speed)",
@@ -42,7 +42,45 @@ export const LORE = {
                     "Three.js 기반 WebGL 렌더링"
                 ],
                 techStack: ["React Three Fiber", "Three.js", "GLSL", "Transmission Material", "PBR Shader"],
-                media: ["/assets/screenshots/lab01_prism.jpg"]
+                media: ["/assets/screenshots/lab01_prism.jpg"],
+                projects: [
+                    {
+                        title: "Hanok-meta Architecture",
+                        period: "2024.04 - 2024.12",
+                        role: "Project Leader (PL)",
+                        desc: "KOCCA R&D 과제. 한옥 BIM 데이터를 활용한 메타버스 시뮬레이션 플랫폼. 언리얼 엔진 5 기반 실시간 렌더링 및 웹 연동 설계.",
+                        metrics: ["Funding: 3.7억", "Eval: Excellent"],
+                        tech: ["Unreal 5", "Pixel Streaming", "BIM"],
+                        color: "amber"
+                    },
+                    {
+                        title: "GYEONGNAM Safety VR",
+                        period: "2023.09 - 2023.12",
+                        role: "Project Manager (PM)",
+                        desc: "경상남도 온라인 안전체험원 VR 파노라마 플랫폼. 5개 테마관, 30종 이상의 안전 교육 콘텐츠 구현. ICT 어워드 대상 수상.",
+                        metrics: ["Award: ICT Grand Prize", "Content: 30+ Types"],
+                        tech: ["WebGL", "VR360", "React"],
+                        color: "emerald"
+                    },
+                    {
+                        title: "1o1.GG Esports Platform",
+                        period: "2021.08 - 2022.05",
+                        role: "PM / Service Lead",
+                        desc: "데이터 분석 기반 이스포츠 코칭 플랫폼. Riot Games API 연동 전적 분석 및 강사 매칭 마켓플레이스.",
+                        metrics: ["Inv: 5억 Seed", "User: Pro Gamers"],
+                        tech: ["Next.js", "AWS", "Riot API"],
+                        color: "blue"
+                    },
+                    {
+                        title: "Interactive Universe",
+                        period: "2024.12 - Present",
+                        role: "Design & Dev",
+                        desc: "R3F를 활용한 3D 웹 포트폴리오. 기획력과 구현 능력을 입증하기 위한 멀티버스 컨셉 프로젝트.",
+                        metrics: ["Scene: 4 Labs", "Stack: R3F+Zustand"],
+                        tech: ["React Three Fiber", "GLSL"],
+                        color: "purple"
+                    }
+                ]
             }
         },
         LAB_02: {

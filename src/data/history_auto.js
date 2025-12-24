@@ -5,16 +5,16 @@ export const autoHistory = [
     "date": "2025-12-24",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "✨ 기능 구현: 추가 cinematic profile header and readme",
+        "⚙️ 시스템: 개인정보 보호를 위해 원본 문서 Git 추적 제외 (docs/raw)",
+        "✨ 기능 구현: 프로필 Projects 섹션 추가 및 문서 아카이빙",
+        "🔧 수정: Lab 라벨/설명을 실제 씬 콘텐츠에 맞게 수정",
+        "✨ 기능 구현: Firebase 익명 방명록 (Giscus → Firestore)",
         "✨ 기능 구현: 방명록 기능 추가 (Giscus, 디버깅 완료 후 해금)",
         "🔧 수정: Sanity CMS 비활성화 (CORS 에러 해결)",
         "🛠️ 업데이트: 배포: 인터랙션 폴리싱 + Career 줄바꿈 수정",
         "✨ 기능 구현: 인터랙션 폴리싱 (호버 스케일, 셀렉션 링, 히트박스 정밀화)",
-        "🛠️ 업데이트: 📜 History 업데이트: v1.6.0~v2.0.0 (12/19~12/23) 데일리 이력 추가",
-        "🛠️ 업데이트: 📝 Phase 38: Dev로그 추가 (Hyperspace + LOW 최적화), Welcome Overlay 설정 안내 추가",
-        "🛠️ 업데이트: ✨ Phase 38: Hub UX 개선, LOW 모드 최적화, Hyperspace 연출 통합, Lab04 디버깅 경험",
-        "🛠️ 업데이트: 업데이트: Expanded Black Box 로그s with strategic depth and Director persona",
-        "⚙️ 시스템: 업데이트 README and Docs for Phase 36 release",
-        "🛠️ 업데이트: 35 & 36 Complete: Black Box Archives & Lab 01 Crystalline Redesign"
+        "🛠️ 업데이트: 📜 History 업데이트: v1.6.0~v2.0.0 (12/19~12/23) 데일리 이력 추가"
     ]
 }
 ];

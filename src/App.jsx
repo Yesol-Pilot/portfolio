@@ -18,6 +18,13 @@ function App() {
   // Always start from boot scene on refresh (no scene param sync on mount)
   // URL sync: only update URL for non-boot scenes
   useEffect(() => {
+    // Mobile Performance Optimization: Auto-switch to LOW mode
+    const isMobile = window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if (isMobile) {
+      useStore.getState().setPerformanceMode('low');
+      console.log('[System] Mobile detected. Performance mode set to LOW.');
+    }
+
     if (currentScene !== 'boot') {
       const url = new URL(window.location);
       url.searchParams.set('scene', currentScene);

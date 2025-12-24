@@ -1,68 +1,134 @@
 import { motion } from 'framer-motion';
-import { Target, Users, Briefcase, Lightbulb } from 'lucide-react';
+import { Database, Code, PenTool, Layout, Award, BookOpen } from 'lucide-react';
 
 const Expertise = () => {
-    const expertiseItems = [
+    const skillGroups = [
         {
-            icon: <Briefcase className="w-8 h-8 text-cyan-400" />,
-            title: "Project Management",
-            desc: "사업기획, 제안서(RFP) 분석 및 작성, 예산 산출, 일정 및 리스크 관리, Agile/Waterfall 방법론 적용"
+            title: "Planning & Strategy",
+            icon: <Layout className="w-5 h-5" />,
+            color: "text-cyan-400",
+            skills: [
+                { name: "Service Planning", level: 95 },
+                { name: "Project Management", level: 90 },
+                { name: "Data Analysis", level: 85 },
+                { name: "Tokenomics", level: 80 }
+            ]
         },
         {
-            icon: <Target className="w-8 h-8 text-purple-400" />,
-            title: "Metaverse & XR Planning",
-            desc: "플랫폼 아키텍처 및 세계관 설계, 서비스 화면설계서(IA/SB) 작성, 데이터 분석 기반 서비스 고도화"
+            title: "Tech & Tools",
+            icon: <Code className="w-5 h-5" />,
+            color: "text-purple-400",
+            skills: [
+                { name: "Unreal / Unity", level: 75 },
+                { name: "Web3 / Blockchain", level: 80 },
+                { name: "Jira / Confluence", level: 95 },
+                { name: "Figma", level: 85 }
+            ]
+        }
+    ];
+
+    const certifications = [
+        {
+            title: "정보처리기사 (필기)",
+            issuer: "한국산업인력공단",
+            date: "2024.08"
         },
         {
-            icon: <Users className="w-8 h-8 text-pink-400" />,
-            title: "Communication & Tools",
-            desc: "Jira/Redmine/Slack 활용 협업, GA/SQL 데이터 분석, 클라이언트/협력사 커뮤니케이션 주도"
+            title: "IT 프로젝트 성과관리 & 위험관리",
+            issuer: "한국산업인력공단 (15h)",
+            date: "2024.06"
         },
         {
-            icon: <Lightbulb className="w-8 h-8 text-emerald-400" />,
-            title: "Technical Understanding",
-            desc: "Three.js/WebGL 구조 이해, 블록체인(Token/NFT) 생태계 설계, UI/UX 디자인 가이드라인 수립"
+            title: "프로젝트 통합관리 (IT사례)",
+            issuer: "한국산업인력공단 (15h)",
+            date: "2024.06"
         }
     ];
 
     return (
-        <section className="py-20 relative z-10 text-white">
-            <div className="container mx-auto px-6">
-                <motion.h2
+        <section className="py-24 relative z-10 text-white">
+            <div className="container mx-auto px-6 max-w-6xl">
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-4xl font-bold mb-16 text-center"
+                    className="mb-16 text-center"
                 >
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
-                        Core Expertise
-                    </span>
-                </motion.h2>
+                    <h2 className="text-4xl font-bold mb-4">Core Expertise</h2>
+                    <p className="text-gray-400">Technical Knowledge & Professional Skills</p>
+                </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {expertiseItems.map((item, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                    {skillGroups.map((group, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all hover:scale-105"
+                            transition={{ delay: index * 0.2 }}
+                            className="bg-black/40 border border-white/10 rounded-2xl p-8 backdrop-blur-md relative overflow-hidden group"
                         >
-                            <div className="mb-6 p-4 bg-black/30 rounded-full w-fit mx-auto border border-white/5">
-                                {item.icon}
+                            {/* Decorative Glow - Fixed Syntax */}
+                            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-transparent to-${group.color.split('-')[1]}-500/10 rounded-bl-full`} />
+
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className={`p-3 bg-white/5 rounded-lg ${group.color}`}>
+                                    {group.icon}
+                                </div>
+                                <h3 className="text-2xl font-bold">{group.title}</h3>
                             </div>
-                            <h3 className="text-xl font-bold mb-4 text-center">{item.title}</h3>
-                            <p className="text-gray-400 text-sm text-center leading-relaxed break-keep">
-                                {item.desc}
-                            </p>
+
+                            <div className="space-y-6">
+                                {group.skills.map((skill, i) => (
+                                    <div key={i}>
+                                        <div className="flex justify-between text-sm mb-2">
+                                            <span className="text-gray-200 font-medium">{skill.name}</span>
+                                            <span className={`font-mono ${group.color}`}>{skill.level}%</span>
+                                        </div>
+                                        <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                            <motion.div
+                                                initial={{ width: 0 }}
+                                                whileInView={{ width: `${skill.level}%` }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1, ease: "easeOut" }}
+                                                className={`h-full ${group.color.replace('text', 'bg')} opacity-80 shadow-[0_0_10px_currentColor]`}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Training & Certifications */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12"
+                >
+                    <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+                        <Award className="w-6 h-6 text-yellow-400" />
+                        <h3 className="text-2xl font-bold">Certifications & Education</h3>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-3">
+                        {certifications.map((cert, index) => (
+                            <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-black/20 hover:bg-black/40 transition-colors">
+                                <BookOpen className="w-5 h-5 text-gray-500 mt-1" />
+                                <div className="text-left">
+                                    <div className="font-bold text-white mb-1">{cert.title}</div>
+                                    <div className="text-sm text-gray-400 mb-1">{cert.issuer}</div>
+                                    <div className="text-xs font-mono text-cyan-500">{cert.date}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
             </div>
         </section>
     );
 };
 
 export default Expertise;
-

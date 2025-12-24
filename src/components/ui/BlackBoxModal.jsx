@@ -29,6 +29,9 @@ const BlackBoxModal = () => {
     // 초기 로그 설정 (로딩 완료 후)
     useEffect(() => {
         if (!isLoading && blackBoxOpen) {
+            // 모달 열릴 때 태그 필터 초기화 (항상 ALL)
+            setActiveTag(null);
+
             if (currentLogId) {
                 // 특정 로그 ID가 지정된 경우
                 setSelectedLogId(currentLogId);

@@ -119,47 +119,93 @@ const MissionModal = () => {
                                 </button>
                             </div>
 
-                            {/* 상세 설명 */}
+                            {/* 공통: 상세 설명 (항상 표시) */}
                             {details.longDescription && (
-                                <div className="text-sm text-white/70 leading-relaxed mb-6">
+                                <div className="text-sm text-white/70 leading-relaxed mb-6 border-b border-white/5 pb-4">
                                     <p>{details.longDescription}</p>
                                 </div>
                             )}
 
-                            {/* 기능 목록 */}
-                            {details.features && details.features.length > 0 && (
-                                <div className="mb-6">
-                                    <h4 className="text-xs font-bold font-sans text-white/80 mb-3 border-b border-white/10 pb-2 uppercase flex items-center gap-2">
-                                        <span className="w-1 h-3 bg-emerald-500 rounded-full" />
-                                        탐험 목표 (Mission Objectives)
+                            {/* 분기: 프로젝트 리스트가 있으면 프로젝트 모드, 없으면 일반 미션 모드 */}
+                            {details.projects && details.projects.length > 0 ? (
+                                <div className="space-y-4 mb-6">
+                                    <h4 className="text-xs font-bold font-sans text-cyan-400 mb-2 border-b border-white/10 pb-2 uppercase flex items-center gap-2">
+                                        <span className="w-1 h-3 bg-cyan-500 rounded-full" />
+                                        PROJECT ARCHIVE
                                     </h4>
-                                    <ul className="grid grid-cols-1 gap-2">
-                                        {details.features.map((feature, idx) => (
-                                            <li key={idx} className="flex items-center text-xs text-white/70 bg-white/5 px-3 py-2 rounded border border-white/5">
-                                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2 flex-shrink-0" />
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
 
-                            {/* 기술 스택 */}
-                            {details.techStack && details.techStack.length > 0 && (
-                                <div className="mb-auto">
-                                    <h4 className="text-xs font-bold font-sans text-white/80 mb-3 border-b border-white/10 pb-2 uppercase flex items-center gap-2">
-                                        <span className="w-1 h-3 bg-blue-500 rounded-full" />
-                                        사용 기술 (Technical Schematics)
-                                    </h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {details.techStack.map((tech, idx) => (
-                                            <span key={idx}
-                                                className="px-2 py-1 text-[10px] font-mono rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
+                                    {details.projects.map((proj, idx) => (
+                                        <div key={idx} className="group relative bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors">
+                                            <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${proj.color === 'amber' ? 'from-amber-500 to-yellow-600' : proj.color === 'emerald' ? 'from-emerald-500 to-teal-600' : proj.color === 'blue' ? 'from-blue-500 to-indigo-600' : 'from-purple-500 to-pink-600'} opacity-50 group-hover:opacity-100 transition-opacity`} />
+
+                                            <div className="pl-3">
+                                                <div className="flex justify-between items-start mb-1">
+                                                    <h5 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">{proj.title}</h5>
+                                                    <span className="text-[10px] font-mono text-gray-400 border border-white/10 px-1.5 py-0.5 rounded">{proj.period}</span>
+                                                </div>
+
+                                                <div className="text-[10px] font-mono text-white/60 mb-2">{proj.role}</div>
+                                                <p className="text-xs text-gray-300 leading-relaxed mb-3 line-clamp-2">{proj.desc}</p>
+
+                                                {/* Metrics Chips */}
+                                                <div className="flex flex-wrap gap-1.5 mb-2">
+                                                    {proj.metrics.map((m, i) => (
+                                                        <span key={i} className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-black/30 text-cyan-200/80 border border-white/5">
+                                                            {m}
+                                                        </span>
+                                                    ))}
+                                                </div>
+
+                                                {/* Tech Tags */}
+                                                <div className="flex flex-wrap gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                                                    {proj.tech.map((t, i) => (
+                                                        <span key={i} className="text-[9px] text-gray-500">#{t}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
+                            ) : (
+                                <>
+                                    {/* 기존 일반 미션 모드 UI */}
+
+                                    {/* 기능 목록 */}
+                                    {details.features && details.features.length > 0 && (
+                                        <div className="mb-6">
+                                            <h4 className="text-xs font-bold font-sans text-white/80 mb-3 border-b border-white/10 pb-2 uppercase flex items-center gap-2">
+                                                <span className="w-1 h-3 bg-emerald-500 rounded-full" />
+                                                탐험 목표 (Mission Objectives)
+                                            </h4>
+                                            <ul className="grid grid-cols-1 gap-2">
+                                                {details.features.map((feature, idx) => (
+                                                    <li key={idx} className="flex items-center text-xs text-white/70 bg-white/5 px-3 py-2 rounded border border-white/5">
+                                                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mr-2 flex-shrink-0" />
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {/* 기술 스택 */}
+                                    {details.techStack && details.techStack.length > 0 && (
+                                        <div className="mb-auto">
+                                            <h4 className="text-xs font-bold font-sans text-white/80 mb-3 border-b border-white/10 pb-2 uppercase flex items-center gap-2">
+                                                <span className="w-1 h-3 bg-blue-500 rounded-full" />
+                                                사용 기술 (Technical Schematics)
+                                            </h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                {details.techStack.map((tech, idx) => (
+                                                    <span key={idx}
+                                                        className="px-2 py-1 text-[10px] font-mono rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300">
+                                                        {tech}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
                             )}
 
                             {/* 액션 버튼 */}

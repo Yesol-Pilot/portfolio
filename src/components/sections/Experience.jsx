@@ -9,11 +9,16 @@ import WarpController from '../core/WarpController'; // Restored for camera anim
 import HyperspaceTunnel from '../effects/HyperspaceTunnel';
 import * as THREE from 'three';
 
+import { useFPSMonitor } from '../../hooks/useFPSMonitor';
+
 const CameraHandler = () => {
     const currentScene = useStore((state) => state.currentScene);
     const prevScene = useStore((state) => state.prevScene);
     const isWarping = useStore((state) => state.isWarping); // Add this
     const { camera, gl, controls } = useThree();
+
+    // Auto-Performance Tuning (Drop to Low if FPS < 35 for 3s)
+    useFPSMonitor(35, 4000);
 
     useEffect(() => {
         // CRITICAL: Do NOT reset camera/controls while warping!
