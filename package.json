@@ -2,7 +2,7 @@
   "name": "portfolio",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Yesol-Pilot.github.io",
+  "homepage": "https://heoyesol.kr",
   "type": "module",
   "scripts": {
     "dev": "vite",

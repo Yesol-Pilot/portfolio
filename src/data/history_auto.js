@@ -5,6 +5,7 @@ export const autoHistory = [
     "date": "2025-12-24",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "🔧 수정: 업데이트 schema.org github link to Yesol-Pilot",
         "✨ 기능 구현: 추가 cinematic profile header and readme",
         "⚙️ 시스템: 개인정보 보호를 위해 원본 문서 Git 추적 제외 (docs/raw)",
         "✨ 기능 구현: 프로필 Projects 섹션 추가 및 문서 아카이빙",
@@ -13,8 +14,7 @@ export const autoHistory = [
         "✨ 기능 구현: 방명록 기능 추가 (Giscus, 디버깅 완료 후 해금)",
         "🔧 수정: Sanity CMS 비활성화 (CORS 에러 해결)",
         "🛠️ 업데이트: 배포: 인터랙션 폴리싱 + Career 줄바꿈 수정",
-        "✨ 기능 구현: 인터랙션 폴리싱 (호버 스케일, 셀렉션 링, 히트박스 정밀화)",
-        "🛠️ 업데이트: 📜 History 업데이트: v1.6.0~v2.0.0 (12/19~12/23) 데일리 이력 추가"
+        "✨ 기능 구현: 인터랙션 폴리싱 (호버 스케일, 셀렉션 링, 히트박스 정밀화)"
     ]
 }
 ];
