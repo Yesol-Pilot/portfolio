@@ -152,15 +152,15 @@ const SolarSystem = () => {
     const planets = [
         {
             lab: LORE.SECTORS.LAB_01,
-            config: { target: 'lab01', color: LORE.SECTORS.LAB_01.visual.color, xRadius: 18, zRadius: 18, inclination: [0, 0, 0], speedOffset: 0.6, korName: "프로젝트", engName: "PROJECTS" }
+            config: { target: 'lab01', color: LORE.SECTORS.LAB_01.visual.color, xRadius: 18, zRadius: 18, inclination: [0, 0, 0], speedOffset: 0.6, korName: "셰이더 랩", engName: "THE PRISM" }
         },
         {
             lab: LORE.SECTORS.LAB_02,
-            config: { target: 'lab02', color: LORE.SECTORS.LAB_02.visual.color, xRadius: 28, zRadius: 28, inclination: [Math.PI / 12, 0, 0], speedOffset: 0.4, korName: "기술 연구소", engName: "TECH LAB" }
+            config: { target: 'lab02', color: LORE.SECTORS.LAB_02.visual.color, xRadius: 28, zRadius: 28, inclination: [Math.PI / 12, 0, 0], speedOffset: 0.4, korName: "기술 생태계", engName: "TECH LIFE" }
         },
         {
             lab: LORE.SECTORS.LAB_03,
-            config: { target: 'lab03', color: LORE.SECTORS.LAB_03.visual.color, xRadius: 40, zRadius: 40, inclination: [-Math.PI / 16, 0, 0], speedOffset: 0.25, korName: "커리어", engName: "CAREER" }
+            config: { target: 'lab03', color: LORE.SECTORS.LAB_03.visual.color, xRadius: 40, zRadius: 40, inclination: [-Math.PI / 16, 0, 0], speedOffset: 0.25, korName: "오디오 랩", engName: "THE RESONANCE" }
         },
         {
             lab: LORE.SECTORS.LAB_04,

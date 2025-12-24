@@ -32,6 +32,17 @@ export const LORE = {
                 color: '#06b6d4', // Cyan
                 texture: 'glass',
                 effect: 'transmission'
+            },
+            details: {
+                longDescription: "이 섹터는 실시간 셰이더 기술과 빛의 굴절을 사용한 프로젝트들을 전시합니다. 수정 구체를 통해 빛이 어떻게 물체와 상호작용하는지 탐험할 수 있습니다. Transmission 머티리얼과 PBR 셰이더를 활용한 시각적 실험의 집합체입니다.",
+                features: [
+                    "실시간 굴절 및 반사 셰이더 체험",
+                    "인터랙티브 파라미터 조절 (Distort, Color, Speed)",
+                    "Transmission 머티리얼 데모",
+                    "Three.js 기반 WebGL 렌더링"
+                ],
+                techStack: ["React Three Fiber", "Three.js", "GLSL", "Transmission Material", "PBR Shader"],
+                media: ["/assets/screenshots/lab01_prism.jpg"]
             }
         },
         LAB_02: {
@@ -46,6 +57,17 @@ export const LORE = {
                 color: '#10b981', // Emerald
                 texture: 'organic',
                 effect: 'pulse'
+            },
+            details: {
+                longDescription: "이 섹터에서는 보유한 기술 스택들이 물리 법칙에 따라 상호작용하는 '살아있는 생태계'를 체험할 수 있습니다. 각 기술은 떠다니는 구체로 시각화되며, 클릭하면 물리적 충돌 반응이 발생합니다. 무중력 전환 등 환경 변수도 조절 가능합니다.",
+                features: [
+                    "기술 스택 3D 시각화",
+                    "물리 엔진 기반 상호작용",
+                    "무중력/중력 환경 전환",
+                    "실시간 충돌 시뮬레이션"
+                ],
+                techStack: ["React Three Fiber", "@react-three/cannon", "Physics Simulation", "Billboard", "3D Text"],
+                media: ["/assets/screenshots/lab02_terrarium.jpg"]
             }
         },
         LAB_03: {
@@ -60,6 +82,17 @@ export const LORE = {
                 color: '#facc15', // Yellow
                 texture: 'gas',
                 effect: 'waves'
+            },
+            details: {
+                longDescription: "이 섹터에서는 실시간 오디오 주파수에 반응하는 시각화를 체험합니다. 마이크 입력을 분석하여 파티클, 바(Bar), 와이어프레임 웨이브가 음악에 맞춰 춤을 춥니다. 데모 모드와 마이크 모드를 전환할 수 있습니다.",
+                features: [
+                    "실시간 오디오 주파수 분석",
+                    "파티클 기반 시각화",
+                    "3D 바 차트 렌더링",
+                    "마이크 입력 반응 모드"
+                ],
+                techStack: ["Web Audio API", "AudioAnalyser", "GLSL Particles", "FFT Analysis", "Three.js"],
+                media: []
             }
         },
         LAB_04: {
@@ -74,6 +107,17 @@ export const LORE = {
                 color: '#ef4444', // Red
                 texture: 'wireframe',
                 effect: 'glitch'
+            },
+            details: {
+                longDescription: "이 섹터는 의도적으로 '불안정'한 상태로 설계되었습니다. 방문자는 '디버거'가 되어 불안정한 모듈들을 수리해야 합니다. 모든 모듈 패치 완료 시 숨겨진 방명록이 해금됩니다. 코드를 통한 문제 해결의 메타포입니다.",
+                features: [
+                    "인터랙티브 디버깅 체험",
+                    "모듈 패치 미니게임",
+                    "방명록 해금 시스템",
+                    "익명 메시지 작성 가능"
+                ],
+                techStack: ["Firebase Firestore", "Real-time Database", "Matrix Rain Shader", "Gamification"],
+                media: []
             }
         },
         PROFILE: {
