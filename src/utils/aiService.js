@@ -1,6 +1,23 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { techStackNodes, projects } from "../data/ProjectData";
 
+/**
+ * ⚠️ 보안 주의사항 (SECURITY NOTICE)
+ * 
+ * 현재 Gemini API 키는 클라이언트 번들에 포함됩니다.
+ * 프로덕션 환경에서는 다음 조치를 권장합니다:
+ * 
+ * 1. Google Cloud Console에서 API 키에 도메인 제한(HTTP Referrer) 설정
+ *    - 허용 도메인: https://heoyesol.kr/*
+ * 
+ * 2. (권장) 서버리스 함수로 API 호출 프록시
+ *    - Vercel Functions 또는 Netlify Functions 활용
+ *    - 서버 측에서 API 키 사용
+ * 
+ * 3. API 사용량 모니터링 및 할당량 제한 설정
+ */
+
+
 // Data preparation for RAG (Retrieval Augmented Generation) context
 const getPortfolioContext = () => {
     const techSummary = techStackNodes.map(n => `- ${n.name} (${n.level}): ${n.desc}`).join('\n');
