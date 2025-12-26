@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useStore } from '../../hooks/useStore';
 
 const SoundManager = () => {
     const currentScene = useStore((state) => state.currentScene);
     const isMuted = useStore((state) => state.isMuted);
-    const audioRef = useRef(null);
-    const currentTrackRef = useRef(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+    const currentTrackRef = useRef<string | null>(null);
 
     // BGM Configuration
-    const bgmTracks = {
+    const bgmTracks: Record<string, string> = {
         'boot': '/sounds/hub_theme.mp3',
         'hub': '/sounds/hub_theme.mp3',
         'profile': '/sounds/hub_theme.mp3',
@@ -19,7 +19,7 @@ const SoundManager = () => {
         'contact': '/sounds/hub_theme.mp3',
     };
 
-    const playTrack = async (scene) => {
+    const playTrack = async (scene: string) => {
         let trackPath = bgmTracks['hub']; // Default
 
         // Detailed Scene Logic
@@ -80,7 +80,7 @@ const SoundManager = () => {
 
     // React to Scene Changes
     useEffect(() => {
-        playTrack(currentScene);
+        if (currentScene) playTrack(currentScene);
     }, [currentScene]);
 
     // Handle Mute State with Smooth Transition

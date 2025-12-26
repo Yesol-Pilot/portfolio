@@ -1,19 +1,24 @@
+```javascript
 import { Suspense, useEffect } from 'react';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
-import Experience from './components/sections/Experience';
+import { Canvas } from '@react-three/fiber';
+import { Leva } from 'leva';
+import { HelmetProvider } from 'react-helmet-async';
+import Loader from './components/layout/Loader';
 import Overlay from './components/layout/Overlay';
 import CustomCursor from './components/layout/CustomCursor';
 import SoundManager from './components/core/SoundManager';
 import ProfileDOM from './components/dom/ProfileDOM';
-import MissionModal from './components/ui/MissionModal';
-import BlackBoxModal from './components/ui/BlackBoxModal';
+import MissionModal from './features/dashboard/MissionModal';
+import BlackBoxModal from './features/dashboard/BlackBoxModal';
+import SEO from './components/core/SEO';
 import { useStore } from './hooks/useStore';
 
 import GlobalErrorBoundary from './components/core/GlobalErrorBoundary';
+import SceneManager from './components/core/SceneManager';
 import { LORE } from './data/lore';
 
-function App() {
-  const currentScene = useStore((state) => state.currentScene);
+const App = () => {
+  const { currentScene } = useStore();
 
   // Always start from boot scene on refresh (no scene param sync on mount)
   // URL sync: only update URL for non-boot scenes
@@ -72,3 +77,4 @@ function App() {
 }
 
 export default App;
+```

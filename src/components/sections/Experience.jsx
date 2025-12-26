@@ -5,7 +5,7 @@ import gsap from 'gsap'; // Added GSAP
 import CinematicEffects from '../effects/CinematicEffects';
 import SceneManager from '../core/SceneManager';
 import { useStore } from '../../hooks/useStore';
-import WarpController from '../core/WarpController'; // Restored for camera animation
+import WarpController from '../../features/navigation/WarpController'; // Restored for camera animation
 import HyperspaceTunnel from '../effects/HyperspaceTunnel';
 import * as THREE from 'three';
 

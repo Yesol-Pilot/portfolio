@@ -3,7 +3,7 @@ import { useStore } from '../../hooks/useStore';
 import HistoryPanel from './HistoryPanel';
 import Navbar from './Navbar';
 import NavigationDock from './NavigationDock';
-import LabUI from '../ui/LabUI';
+import LabUI from '../../features/dashboard/LabUI';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Welcome Overlay for first-time visitors

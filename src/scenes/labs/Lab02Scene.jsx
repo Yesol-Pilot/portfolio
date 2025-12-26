@@ -5,8 +5,8 @@ import { Text, Html, Environment, Float, Sparkles, Cloud, OrbitControls } from '
 import * as THREE from 'three';
 import { techStackNodes, projects } from '../../data/ProjectData';
 import { useFrame } from '@react-three/fiber';
-import AIChatTerminal from '../../components/ui/AIChatTerminal';
-import CinematicHologramChat from '../../components/ui/CinematicHologramChat';
+import AIChatTerminal from '../../features/ai/AIChatTerminal';
+import CinematicHologramChat from '../../features/ai/CinematicHologramChat';
 
 // 🌌 Lab02: Tech Constellation - Dual Mode (Gravity / Zero-G)
 

@@ -5,6 +5,7 @@ export const autoHistory = [
     "date": "2025-12-26",
     "title": "DEVELOPER LOG (LIVE)",
     "changes": [
+        "🛠️ 업데이트: 기능(v2): 구현 adaptive 성능 mode & migrate utils/data to typescript",
         "✨ 기능 구현: complete phase 1 몰입감 upgrade (오디오 cross-fade, warp physics) & 업데이트 dev로그s",
         "🚀 성능 최적화: 코드 스플리팅 세분화 및 접근성 개선",
         "🛠️ 업데이트: 🔧 디버깅: 로컬 환경 테스트 파일 추가",
@@ -13,8 +14,7 @@ export const autoHistory = [
         "🔧 수정: restore portfolio to heoyesol.kr domain",
         "🔧 수정: 업데이트 schema.org github link to Yesol-Pilot",
         "✨ 기능 구현: 추가 cinematic profile header and readme",
-        "⚙️ 시스템: 개인정보 보호를 위해 원본 문서 Git 추적 제외 (docs/raw)",
-        "✨ 기능 구현: 프로필 Projects 섹션 추가 및 문서 아카이빙"
+        "⚙️ 시스템: 개인정보 보호를 위해 원본 문서 Git 추적 제외 (docs/raw)"
     ]
 }
 ];

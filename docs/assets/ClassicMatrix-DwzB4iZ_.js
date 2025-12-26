@@ -1,4 +1,4 @@
-import{t as o,u as c,n as l,m as u,C as m,w as f,z as e,$ as d}from"./three-DS91w7Dj.js";import"./index-aZuYDzxB.js";import"./vendor-CqO7gtIP.js";import"./animation-8i8s5thx.js";import"./postprocessing-DuwpyNE2.js";import"./sanity-BYUyb1Ps.js";const v=({opacity:r=.2})=>{const t=o.useRef(),{viewport:a}=c(),i=o.useMemo(()=>new l({uniforms:{uTime:{value:0},uColor:{value:new m("#00ff41")},uOpacity:{value:r}},vertexShader:`
+import{t as o,u as c,n as l,m as u,C as m,w as f,z as e,$ as d}from"./three-DS91w7Dj.js";import"./index-DLc5b3N6.js";import"./vendor-CqO7gtIP.js";import"./animation-8i8s5thx.js";import"./postprocessing-DuwpyNE2.js";import"./sanity-BYUyb1Ps.js";const v=({opacity:r=.2})=>{const t=o.useRef(),{viewport:a}=c(),i=o.useMemo(()=>new l({uniforms:{uTime:{value:0},uColor:{value:new m("#00ff41")},uOpacity:{value:r}},vertexShader:`
                 varying vec2 vUv;
                 void main() {
                     vUv = uv;

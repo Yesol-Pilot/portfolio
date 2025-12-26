@@ -11,7 +11,7 @@ import { useRef, useMemo, useState, useEffect, useCallback } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Text, Html, Float, Billboard, Sparkles } from '@react-three/drei';
 import useSoundFX from '../../hooks/useSoundFX';
-import AnonymousGuestbook from '../../components/ui/AnonymousGuestbook';
+import AnonymousGuestbook from '../../features/dashboard/AnonymousGuestbook';
 import * as THREE from 'three';
 
 // --- Matrix Rain Shader Material ---
