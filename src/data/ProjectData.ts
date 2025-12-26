@@ -1,4 +1,15 @@
-export const projects = [
+export interface Project {
+    id: number;
+    title: string;
+    description: string;
+    tech: string[];
+    image: string;
+    link: string;
+    award?: string;
+    budget?: string;
+}
+
+export const projects: Project[] = [
     {
         id: 1,
         title: "메타한옥: 북촌",
@@ -58,7 +69,15 @@ export const projects = [
     }
 ];
 
-export const techStackNodes = [
+export interface TechNode {
+    name: string;
+    color: string;
+    type: string;
+    level: string;
+    desc: string;
+}
+
+export const techStackNodes: TechNode[] = [
     // Frontend Ecosystem
     { name: "React", color: "#61dafb", type: "frontend", level: "Expert", desc: "컴포넌트 기반 아키텍처 설계 및 최적화 경험 보유." },
     { name: "Three.js", color: "#ffffff", type: "frontend", level: "Advanced", desc: "WebGL 기반 3D 인터랙션 및 Shader 효과 구현 가능." },
@@ -95,4 +114,3 @@ export const techStackNodes = [
     { name: "ZEP", color: "#00c73c", type: "platform", level: "Expert", desc: "ZEP 스크립트(ZEM)를 활용한 메타버스 맵/게임 제작." },
     { name: "Roblox", color: "#cd201f", type: "platform", level: "Intermediate", desc: "Lua 스크립팅을 이용한 로블록스 게임 로직 구현." }
 ];
-

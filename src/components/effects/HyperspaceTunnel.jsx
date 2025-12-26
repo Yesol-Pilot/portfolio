@@ -8,14 +8,20 @@ const STAR_COUNT = 800;
 export default function HyperspaceTunnel() {
     const meshRef = useRef();
     const isWarping = useStore((state) => state.isWarping);
+    const performanceMode = useStore((state) => state.performanceMode);
+    const isHighPerf = performanceMode === 'high';
+
     const speedRef = useRef(0.2);
     const warpTimeRef = useRef(0);
 
-    // Star positions - start in front of camera, fly backwards past it
-    const { positions } = useMemo(() => {
-        const pos = new Float32Array(STAR_COUNT * 3);
+    // Active particle count based on mode
+    const activeCount = isHighPerf ? STAR_COUNT : 300;
 
-        for (let i = 0; i < STAR_COUNT; i++) {
+    // Star positions - re-calculate when count changes (effectively when mode changes if component re-mounts)
+    const { positions } = useMemo(() => {
+        const pos = new Float32Array(activeCount * 3);
+
+        for (let i = 0; i < activeCount; i++) {
             const angle = Math.random() * Math.PI * 2;
             const radius = 3 + Math.random() * 40; // Tunnel radius
 
@@ -24,7 +30,7 @@ export default function HyperspaceTunnel() {
             pos[i * 3 + 2] = Math.random() * -300; // Start in front (negative Z)
         }
         return { positions: pos };
-    }, []);
+    }, [activeCount]);
 
     const dummyRef = useRef(new THREE.Object3D());
 
@@ -45,7 +51,7 @@ export default function HyperspaceTunnel() {
         const speed = speedRef.current;
         const stretchProgress = Math.min(warpTimeRef.current / 0.6, 1.0);
 
-        for (let i = 0; i < STAR_COUNT; i++) {
+        for (let i = 0; i < activeCount; i++) {
             let z = positions[i * 3 + 2];
 
             // Stars fly BACKWARDS past camera (z increases)
@@ -76,12 +82,12 @@ export default function HyperspaceTunnel() {
     });
 
     return (
-        <instancedMesh ref={meshRef} args={[null, null, STAR_COUNT]}>
+        <instancedMesh ref={meshRef} args={[null, null, activeCount]}>
             <cylinderGeometry args={[0.04, 0.04, 1, 4]} />
             <meshBasicMaterial
                 color={"#a5f3fc"}
                 transparent
-                opacity={0.8}
+                opacity={isHighPerf ? 0.8 : 0.5}
                 blending={THREE.AdditiveBlending}
                 depthWrite={false}
             />

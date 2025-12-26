@@ -506,6 +506,34 @@ BGM이 뚝 끊기고, 워프 효과는 밋밋한 선형(Linear) 애니메이션�
 ## Result
 이제 사용자는 클릭하는 순간, 시스템이 멈추는 것이 아니라 **'가속한다'**는 느낌을 받는다.
 기술적 튜닝이 감성적 경험을 어떻게 바꾸는지 보여주는 사례다.`
+    },
+    {
+        id: "log-017",
+        title: "v2 Evolution: The Hybrid Engine",
+        date: "2026-01-03",
+        tags: ["아키텍처", "TypeScript", "최적화"],
+        summary: "Type Safety 확보와 Performance Mode 정밀 제어. 하이브리드 진화의 시작.",
+        content: `## Structural Hardening (구조적 강화)
+        
+시스템의 영속성을 위해 **TypeScript** 마이그레이션을 시작했다.
+- \`Data Layer\` (ProjectData)와 \`Service Layer\` (AiService)를 우선적으로 Type-Safe하게 전환했다.
+- 이제 데이터 흐름은 명시적이고 안전하다.
+
+## Precision Performance Tuning (정밀 최적화)
+
+사용자 환경에 반응하는 **'Adaptive Universe'**를 구현했다.
+
+### 1. High Performance (Visual Fidelity)
+- Full Post-processing (Bloom, Vignette, ToneMapping)
+- 800+ Active Particles (Hyperspace)
+- Exponential Warp Distortion
+
+### 2. Low Performance (Accessibility)
+- **Zero-Cost Rendering**: Post-processing 파이프라인을 완전히 제거(Bypass).
+- **Resource Optimization**: 파티클 수를 60% 이상 감소(800 -> 300).
+- 셰이더 연산량을 최소화하여 저사양 기기에서도 부드러운 항해를 보장한다.
+
+우리는 '화려함'을 위해 '접근성'을 희생하지 않는다.`
     }
 ];
 

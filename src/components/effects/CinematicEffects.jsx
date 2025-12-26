@@ -37,6 +37,13 @@ class BloomErrorBoundary extends Component {
  * - Vignette로 시네마틱 분위기
  */
 const CinematicEffects = () => {
+    const performanceMode = useStore((state) => state.performanceMode);
+
+    // Low Performance Mode: Disable all post-processing
+    if (performanceMode === 'low') {
+        return null;
+    }
+
     const isWarping = useStore((state) => state.isWarping);
     const missionModalData = useStore((state) => state.missionModalData);
     const blurRef = useRef();

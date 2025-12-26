@@ -9,7 +9,7 @@ const StarField = ({ count = 500 }) => {
     const isHighPerf = performanceMode === 'high';
 
     // Reduce count in low perf mode
-    const finalCount = isHighPerf ? count : count / 2;
+    const finalCount = isHighPerf ? count : Math.floor(count / 3); // Drastic reduction for Low Mode
 
     const dummy = useMemo(() => new THREE.Object3D(), []);
 

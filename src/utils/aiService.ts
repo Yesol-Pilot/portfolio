@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI, GenerativeModel } from "@google/generative-ai";
 import { techStackNodes, projects } from "../data/ProjectData";
 
 /**
@@ -17,9 +17,8 @@ import { techStackNodes, projects } from "../data/ProjectData";
  * 3. API 사용량 모니터링 및 할당량 제한 설정
  */
 
-
 // Data preparation for RAG (Retrieval Augmented Generation) context
-const getPortfolioContext = () => {
+const getPortfolioContext = (): string => {
     const techSummary = techStackNodes.map(n => `- ${n.name} (${n.level}): ${n.desc}`).join('\n');
 
     const projectSummary = projects.map(p => {
@@ -99,10 +98,10 @@ ${projectSummary}
 `;
 };
 
-let genAI = null;
-let model = null;
+let genAI: GoogleGenerativeAI | null = null;
+let model: GenerativeModel | null = null;
 
-export const initializeAI = () => {
+export const initializeAI = (): boolean => {
     const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
     console.log("🔑 Checking API Key:", API_KEY ? `Exists (${API_KEY.substring(0, 5)}...)` : "MISSING");
 
@@ -120,7 +119,12 @@ export const initializeAI = () => {
     }
 };
 
-export const generateAIResponse = async (userMessage, history = []) => {
+interface ChatHistoryItem {
+    role: "user" | "model";
+    parts: { text: string }[];
+}
+
+export const generateAIResponse = async (userMessage: string, history: ChatHistoryItem[] = []): Promise<string> => {
     if (!model) {
         const initialized = initializeAI();
         if (!initialized) return "죄송합니다. 현재 AI 시스템 연결(API Key)이 설정되지 않았습니다.";
@@ -130,7 +134,7 @@ export const generateAIResponse = async (userMessage, history = []) => {
         const systemPrompt = getPortfolioContext();
 
         // Construct prompt with history
-        const chat = model.startChat({
+        const chat = model!.startChat({
             history: [
                 {
                     role: "user",
